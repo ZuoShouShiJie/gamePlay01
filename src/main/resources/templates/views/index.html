@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>极速易配后管系统</title>
+	<link rel="stylesheet" th:href="@{/frame/layui-v2/css/layui.css}" media="all">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+	<div class="layui-header">
+		<div class="layui-logo">极速易配后管平台</div>
+		<!-- 头部区域（可配合layui已有的水平导航） -->
+		<!--<ul class="layui-nav layui-layout-left">
+			<li class="layui-nav-item"><a href="">控制台</a></li>
+			<li class="layui-nav-item"><a href="">商品管理</a></li>
+			<li class="layui-nav-item"><a hrefUserController">用户</a></li>
+			<li class="layui-nav-item">
+				<a href="javascript:;">其它系统</a>
+				<dl class="layui-nav-child">
+					<dd><a href="">邮件管理</a></dd>
+					<dd><a href="">消息管理</a></dd>
+					<dd><a href="">授权管理</a></dd>
+				</dl>
+			</li>
+		</ul>-->
+		<ul class="layui-nav layui-layout-right">
+			<li class="layui-nav-item">
+				<a href="javascript:;">
+					   <div class="layui-row">
+						<label class="layui-form-label" name="userName"  id="userName" style="margin-top: 12px"></label>
+					    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+					   </div>
+					<input class="layui-input" name="businessPeopleName"  id="businessPeopleName" type="hidden">
+				</a>
+				<dl class="layui-nav-child">
+					<dd><a href="./page?page=changeUser" target="mainPage">修改密码</a></dd>
+				</dl>
+			</li>
+			<li class="layui-nav-item"><a href="user/logout">退出</a></li>
+		</ul>
+	</div>
+
+	<div class="layui-side layui-bg-black">
+		<div class="layui-side-scroll">
+			<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+			<ul class="layui-nav layui-nav-tree"  lay-filter="test">
+
+				<li class="layui-nav-item">
+					<a href="javascript:;">记录管理</a>
+					<dl class="layui-nav-child">
+						<!--<dd><a href="./page?page=feedVisitInfoImport" target="mainPage">访问数据导入</a></dd>-->
+						<dd><a href="./page?page=feedBackInfoImport" target="mainPage">反馈数据导入</a></dd>
+						<dd><a href="./page?page=nobusinesspersonRelated" target="mainPage">无推广人员关联单据</a></dd>
+						<dd><a href="./page?page=queryVisitDetailRecord" target="mainPage">申卡数据查询</a></dd>
+
+						<dd><a href="./page?page=queryBackDetailRecord" target="mainPage">反馈数据查询</a></dd>
+					</dl>
+				</li>
+				<li class="layui-nav-item">
+					<a href="javascript:;">佣金管理管理</a>
+					<dl class="layui-nav-child">
+						<dd><a href="./page?page=commissionAudit" target="mainPage">分佣审批</a></dd>
+						<dd><a href="./page?page=commissionDetailSearch" target="mainPage">分佣明细查询</a></dd>
+					</dl>
+				</li>
+				<li class="layui-nav-item">
+					<a href="javascript:;">付款管理</a>
+					<dl class="layui-nav-child">
+						<dd><a href="./page?page=unpaidDetailPage" target="mainPage">待付款清单</a></dd>
+						<dd><a href="./page?page=paidDetailPage" target="mainPage">已付款清单</a></dd>
+						<!--<dd><a href="./page?page=advancePaidDetailPage" target="mainPage">预付款查询</a></dd>-->
+					</dl>
+				</li>
+
+				<li class="layui-nav-item">
+					<a href="javascript:;">会员管理</a>
+					<dl class="layui-nav-child">
+						<dd><a href="./page?page=membersManage" target="mainPage">会员信息</a></dd>
+					</dl>
+				</li>
+				<li class="layui-nav-item">
+					<a href="javascript:;">营销产品管理</a>
+					<dl class="layui-nav-child">
+						<dd><a href="./page?page=creditCardProduct" target="mainPage">信用卡</a></dd>
+						<dd><a href="./page?page=loanProduct" target="mainPage">贷款</a></dd>
+					</dl>
+				</li>
+				<li class="layui-nav-item">
+					<a href="javascript:;">推广员管理</a>
+					<dl class="layui-nav-child">
+						<dd><a href="./page?page=inBusinessPeople" target="mainPage">内部推广员</a></dd>
+					</dl>
+					<dl class="layui-nav-child">
+						<dd><a href="./page?page=outBusinessPeople" target="mainPage">外部推广员</a></dd>
+					</dl>
+				</li>
+				<li class="layui-nav-item">
+					<a href="javascript:;">用户管理</a>
+					<dl class="layui-nav-child">
+						<dd><a href="./page?page=addUser" target="mainPage">新增用户</a></dd>
+					</dl>
+					<!--<dl class="layui-nav-child">
+						<dd><a href="./page?page=changeUser" target="mainPage">修改密码</a></dd>
+					</dl>-->
+					<dl class="layui-nav-child">
+						<dd><a href="./page?page=userInfoList" target="mainPage">用户列表</a></dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!--<div class="layui-body">
+		&lt;!&ndash; 内容主体区域 &ndash;&gt;
+		<div style="padding: 15px;">内容主体区域</div>
+	</div>-->
+	<!-- 右侧主体开始 -->
+	<div class="layui-body">
+		<iframe id="mainPage" name="mainPage" src="./page?page=queryVisitDetailRecord" style="overflow: scroll"  frameborder="no" width="100%" height="100%" ></iframe>
+		<!--<iframe id="mainPage" name="mainPage" src="./page?page=financialProducts"  style="overflow: scroll"  frameborder="no" width="100%" height="100%"></iframe>
+-->
+
+		<!--<div class="layui-tab tab" lay-filter="wenav_tab" id="WeTabTip" lay-allowclose="true">
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<iframe id="mainPage" name="mainPage" src="./page?page=queryVisitDetailRecord" style="overflow: scroll"  frameborder="no" width="100%" height="100%" scrolling="yes"></iframe>
+				</div>
+			</div>
+		</div>-->
+	</div>
+	<div class="page-content-bg"></div>
+	<!-- 右侧主体结束 -->
+	<!-- 中部结束 -->
+
+	<div class="layui-footer">
+		<!-- 底部固定区域 -->
+		© layui.com - 底部固定区域
+	</div>
+</div>
+<script th:src="@{/frame/layui-v2/layui.js}" charset="utf-8"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+
+    layui.use(['layer'], function(){
+        var layer=layui.layer;
+        var router = layui.router();
+        var $ = layui.$;//获取jquery组件
+
+        // layer.alert(layui.data('test').nickname);
+
+        // layer.alert('aaaa');//弹出提示 “xxx”
+       // var name = window.location.href.split("=")[2]
+        var name = localStorage.getItem("userName");
+        $('#userName').text(name);
+        $('#businessPeopleName').val(name)
+
+        //弹出提示 “aaa”
+
+    });
+</script>
+</body>
+</html>
