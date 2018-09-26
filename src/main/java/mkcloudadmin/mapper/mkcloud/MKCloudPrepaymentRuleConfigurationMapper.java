@@ -17,5 +17,6 @@ public interface MKCloudPrepaymentRuleConfigurationMapper {
 
     int updateByPrimaryKey(MKCloudPrepaymentRuleConfiguration record);
 
-   List<MKCloudPrepaymentRuleConfiguration> selectByPrepaymentRuleConfiguration();
+    List<MKCloudPrepaymentRuleConfiguration> selectByPrepaymentRuleConfiguration();
+    List<MKCloudPrepaymentRuleConfiguration>  selectByPrepay();
 }

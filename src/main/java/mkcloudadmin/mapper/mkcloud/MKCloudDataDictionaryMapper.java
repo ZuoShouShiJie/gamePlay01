@@ -21,5 +21,10 @@ public interface MKCloudDataDictionaryMapper {
      * 查询所有有效的数据字典配置信息
      * @return
      */
-  MKCloudDataDictionary selectByState(@Param("code") String code);
+  MKCloudDataDictionary selectByState(@Param("code") String code,@Param("state") String state);
+
+
+  List<MKCloudDataDictionary> selectByDataDictionary(@Param("state") String state);
+
+    int updateByCode(MKCloudDataDictionary record);
 }

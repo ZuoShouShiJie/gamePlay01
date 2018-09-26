@@ -20,11 +20,11 @@ public interface BusinessPeopleService {
      * @param map
      * @return
      */
-    boolean   addBusinessPeopleIn(Map<String, String> map);
+    String   addBusinessPeopleIn(Map<String, String> map);
     /**
      * 修改内部推广人员
      */
-    boolean  updateBusinessPeopleIn(Map<String, String> map);
+    String  updateBusinessPeopleIn(Map<String, String> map);
     /**
      * (后管)
      * 根据businessPeopleCode查看查看推广人员信息   ，

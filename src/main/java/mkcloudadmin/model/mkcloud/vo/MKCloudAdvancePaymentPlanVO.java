@@ -7,12 +7,9 @@ public class MKCloudAdvancePaymentPlanVO {
     private  String  totalPailMoney;
     private  String  usedPailMoney;
     private  String  overPailplusMoney;
-
-
     private Long id;
-
     private String adjustType;
-
+    private String adjustTypeName;
     private String advance;
 
     private String accountDate;
@@ -26,6 +23,14 @@ public class MKCloudAdvancePaymentPlanVO {
     private String createUser;
 
     private String createTime;
+
+    public String getAdjustTypeName() {
+        return adjustTypeName;
+    }
+
+    public void setAdjustTypeName(String adjustTypeName) {
+        this.adjustTypeName = adjustTypeName;
+    }
 
     public String getTotalPailMoney() {
         return totalPailMoney;

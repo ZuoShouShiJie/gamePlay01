@@ -15,12 +15,12 @@
             <legend>修改用户信息</legend>
         </fieldset>
         <div style="margin-left: 350px">
-            <div class="layui-form-item" align="center">
+        <!--    <div class="layui-form-item" align="center">
                 <label class="layui-form-label">用户名</label>
                 <div class="layui-input-inline">
                     <input id="username" name="username" lay-verify="required" autocomplete="off" class="layui-input" type="text" style="width: 300px"/>
                 </div>
-            </div>
+            </div>-->
             <div class="layui-form-item">
                 <label class="layui-form-label">旧密码</label>
                 <div class="layui-input-inline">
@@ -88,10 +88,10 @@
 
             var newPWD = md5(params.newPassword);
             var oldPWD = md5(params.oldPassword);
-            var userName = params.username;
+//            var userName = params.username;
             // 发现有字段变更之后，通过ajax更新所有字段
-            $.post("user/changeUserData", {username:userName,oldPassword:oldPWD,newPassword:newPWD}, function(res) {
-                if (res.code != '1') {
+            $.post("operator/changeUserData", {oldPassword:oldPWD,newPassword:newPWD}, function(res) {
+                if (res.code==0) {
                     alert(res.msg);
                     window.parent.location.reload();
                 } else {

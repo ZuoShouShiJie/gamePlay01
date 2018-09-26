@@ -24,11 +24,11 @@
     <if test="costType != '' and costType != null" >
       and cost_type = #{costType,jdbcType=VARCHAR}
     </if>
-    <if test="beginDate != '' and beginDate != null" >
-     and  create_time > #{beginDate,jdbcType=VARCHAR}
+    <if test=" beginDate != null" >
+     and  create_time >= #{beginDate,jdbcType=TIMESTAMP}
     </if>
-    <if test="endDate !='' and endDate != null" >
-      and create_time &lt;  #{endDate,jdbcType=VARCHAR}
+    <if test="endDate != null" >
+      and create_time &lt;  #{endDate,jdbcType=TIMESTAMP}
     </if>
   </select>
 
@@ -46,11 +46,11 @@
     <if test="costType !='' and costType != null" >
       and cost_type = #{costType,jdbcType=VARCHAR}
     </if>
-    <if test="beginDate != '' and beginDate != null" >
-      and create_time > #{beginDate,jdbcType=VARCHAR}
+    <if test=" beginDate != null" >
+      and create_time >= #{beginDate,jdbcType=TIMESTAMP}
     </if>
-    <if test="endDate != '' and endDate != null" >
-      and create_time &lt;  #{endDate,jdbcType=VARCHAR}
+    <if test=" endDate != null" >
+      and create_time &lt;  #{endDate,jdbcType=TIMESTAMP}
     </if>
     ORDER BY id
     <include refid="base.limit" />
@@ -70,17 +70,17 @@
     <if test="costType !='' and costType != null" >
       and cost_type = #{costType,jdbcType=VARCHAR}
     </if>
-    <if test="beginDate= '' and beginDate != null" >
-      and create_time > #{beginDate,jdbcType=VARCHAR}
+    <if test=" beginDate != null" >
+      and create_time >= #{beginDate,jdbcType=TIMESTAMP}
     </if>
-    <if test="endDate !='' and endDate != null" >
-      and create_time &lt;  #{endDate,jdbcType=VARCHAR}
+    <if test="endDate != null" >
+      and create_time &lt;  #{endDate,jdbcType=TIMESTAMP}
     </if>
-    <if test="confirmBeginDate != '' and confirmBeginDate != null" >
-      and confirm_time > #{confirmBeginDate,jdbcType=VARCHAR}
+    <if test="confirmBeginDate != null" >
+      and confirm_time >= #{confirmBeginDate,jdbcType=TIMESTAMP}
     </if>
-    <if test="confirmEndDate != '' and confirmEndDate != null" >
-      and confirm_time &lt;  #{confirmEndDate,jdbcType=VARCHAR}
+    <if test="confirmEndDate != null" >
+      and confirm_time &lt;  #{confirmEndDate,jdbcType=TIMESTAMP}
     </if>
   </select>
 
@@ -98,17 +98,17 @@
     <if test="costType !='' and costType != null" >
       and cost_type = #{costType,jdbcType=VARCHAR}
     </if>
-    <if test="beginDate !='' and beginDate != null" >
-     and  create_time > #{beginDate,jdbcType=VARCHAR}
+    <if test="beginDate != null" >
+     and  create_time >= #{beginDate,jdbcType=TIMESTAMP}
     </if>
-    <if test="endDate !='' and endDate != null" >
-      and `create_time`&lt;  #{endDate,jdbcType=VARCHAR}
+    <if test="endDate != null" >
+      and `create_time`&lt;  #{endDate,jdbcType=TIMESTAMP}
     </if>
-    <if test="confirmBeginDate !='' and confirmBeginDate != null" >
-     and  confirm_time > #{confirmBeginDate,jdbcType=VARCHAR}
+    <if test="confirmBeginDate != null" >
+     and  confirm_time >= #{confirmBeginDate,jdbcType=TIMESTAMP}
     </if>
-    <if test="confirmEndDate !='' and confirmEndDate != null" >
-     and confirm_time &lt;  #{confirmEndDate,jdbcType=VARCHAR}
+    <if test="confirmEndDate != null" >
+     and confirm_time &lt;  #{confirmEndDate,jdbcType=TIMESTAMP}
     </if>
     ORDER BY id
     <include refid="base.limit" />

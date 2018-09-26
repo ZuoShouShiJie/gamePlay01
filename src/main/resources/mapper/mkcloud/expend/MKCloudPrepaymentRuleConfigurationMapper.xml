@@ -7,4 +7,9 @@
     from mkcloud_prepayment_rule_configuration
     where   `state` = '1'
   </select>
+  <select id="selectByPrepay" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from mkcloud_prepayment_rule_configuration
+  </select>
 </mapper>

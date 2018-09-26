@@ -58,7 +58,7 @@
                             if(data.code == 0){
                                 /*window.location.href="./page?page=index&user="+$('#username').val();*/
                                 localStorage.setItem("userName", $('#username').val());
-                                window.location.href="./page?page=index";
+                                window.location.href="./page?page=index&id="+data.data;
 
                             }else {
                                 layer.msg(data.msg);

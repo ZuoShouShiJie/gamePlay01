@@ -6,11 +6,13 @@ import java.util.Date;
 public class MKCloudPrepaymentRuleConfiguration {
     private Long id;
 
+    private String merchantCode;
+
     private String settlementType;
 
     private String settlementMode;
 
-    private Short settlementPeriod;
+    private BigDecimal settlementPeriod;
 
     private String settlementPeriodUnit;
 
@@ -38,6 +40,14 @@ public class MKCloudPrepaymentRuleConfiguration {
         this.id = id;
     }
 
+    public String getMerchantCode() {
+        return merchantCode;
+    }
+
+    public void setMerchantCode(String merchantCode) {
+        this.merchantCode = merchantCode == null ? null : merchantCode.trim();
+    }
+
     public String getSettlementType() {
         return settlementType;
     }
@@ -54,11 +64,11 @@ public class MKCloudPrepaymentRuleConfiguration {
         this.settlementMode = settlementMode == null ? null : settlementMode.trim();
     }
 
-    public Short getSettlementPeriod() {
+    public BigDecimal getSettlementPeriod() {
         return settlementPeriod;
     }
 
-    public void setSettlementPeriod(Short settlementPeriod) {
+    public void setSettlementPeriod(BigDecimal settlementPeriod) {
         this.settlementPeriod = settlementPeriod;
     }
 

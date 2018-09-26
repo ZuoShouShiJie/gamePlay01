@@ -137,4 +137,17 @@
     from mkcloud_bank_import_detail
   </select>
 
+  <select id="queryTotalCommission" resultType="java.math.BigDecimal">
+    SELECT SUM(commission) FROM mkcloud_bank_import_detail WHERE is_delete = '0' AND audit_status = '成功'
+  </select>
+  <select id="queryNaturalTotal" resultType="java.math.BigDecimal">
+    SELECT SUM(commission) FROM mkcloud_bank_import_detail WHERE is_delete = '0' AND audit_status = '成功' AND (business_people_code IS NULL OR business_people_code ='')
+  </select>
+  <select id="queryRecommendTotal" resultType="java.math.BigDecimal">
+    SELECT SUM(commission) FROM mkcloud_bank_import_detail WHERE is_delete = '0' AND audit_status = '成功' AND (business_people_code IS NOT NULL AND business_people_code !='')
+  </select>
+  <select id="queryPromotersTotal" resultType="java.math.BigDecimal">
+    SELECT SUM(out_commission) FROM mkcloud_bank_import_detail WHERE is_delete = '0' AND audit_status = '成功' AND (business_people_code IS NOT NULL AND business_people_code !='')
+  </select>
+
 </mapper>

@@ -360,10 +360,13 @@ public class BankFeedBackServiceImpl implements BankFeedBackService {
                 commossion1 = (mkCloudCreditCardInfo == null ? new BigDecimal(0) : mkCloudCreditCardInfo.getOutCommission()).subtract(commossion2).subtract(commossion3);
                 mkCloudCommissionDetail = new MKCloudCommissionDetail();
                 //查询产品信息
-
+                if (firstBusinessPepole == null) {
+                   commossion1 = new BigDecimal(0);
+               }
 
                      /*mkCloudBankImportDetail.setCommission(mkCloudCreditCardInfo.getAllCommission());*/
                 mkCloudBankImportDetail.setInCommission(mkCloudCreditCardInfo.getInCommission());
+
                 mkCloudBankImportDetail.setOutCommission(commossion1);
                 mkCloudBankImportDetail.setOutCommission2(commossion2);
                 mkCloudBankImportDetail.setOutCommission3(commossion3);
@@ -470,7 +473,6 @@ public class BankFeedBackServiceImpl implements BankFeedBackService {
 
         mkCloudBankImportTotalMapper.updateFeedBackInfoImportTotalByBatchId(batchId);
         return "";
-
     }
 
 }

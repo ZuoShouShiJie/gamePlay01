@@ -32,8 +32,8 @@
     </span>
     <input  class="layui-input" id="advance" type="hidden" name="advance"/>
     <input id="state" type="hidden" name="state" />
-     <input  class="layui-input" id="settlementEndDate" type="hidden" name="settlementEndDate"/>
-    <input id="settltmentBeginDate" type="hidden" name="settltmentBeginDate" />
+     <input  class="layui-input" id="endDate" type="hidden" name="endDate"/>
+    <input id="beginDate" type="hidden" name="beginDate" />
 </div>
 </span>
 <!-- 自动渲染 -->
@@ -49,7 +49,7 @@
         $(document).ready(function () {
             var value = $('#business_people_level').val();
             var valueAdvance = $('#advance').val();
-            if (valueAdvance) {
+            if (valueAdvance=="advancename") {
                 return $('#advancePaid').addClass('displaya');
             }else if(!value){
                 return $('#displaynone').addClass('displaya');

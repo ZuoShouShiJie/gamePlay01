@@ -351,4 +351,34 @@
       version = #{version,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <update id="updateByNameCode" parameterType="mkcloudadmin.model.mkcloud.po.MKCloudBankImportDetail" >
+    update mkcloud_bank_import_detail
+    <set >
+      <if test="businessPeopleCode != null" >
+        business_people_code = #{businessPeopleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessPeopleName != null" >
+        business_people_name = #{businessPeopleName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where
+    cus_name = #{cusName,jdbcType=VARCHAR} and
+    cus_tel = #{cusTel,jdbcType=VARCHAR}
+  </update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>

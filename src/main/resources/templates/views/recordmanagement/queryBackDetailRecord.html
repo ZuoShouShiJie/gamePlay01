@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <title>反馈数据查询</title>
+    <title>佣金分配查询</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -42,11 +42,11 @@
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 100px">申请时间：</label>
         <div class="layui-input-inline">
-            <input type="text" class="layui-input" id="applyBeginDate" placeholder="在此开始">
+            <input type="text" class="layui-input" id="applyBeginDate" placeholder="yyyy-MM-dd">
         </div>
         <label class="layui-form-label"style="width: 10px;">~</label>
         <div class="layui-input-inline">
-            <input type="text" class="layui-input" id="applyEndDate" placeholder="在此之前">
+            <input type="text" class="layui-input" id="applyEndDate" placeholder="yyyy-MM-dd">
         </div>
     </div>
     </br>
@@ -58,12 +58,13 @@
     <thead>
     <tr>
         <th lay-data="{fixed:'left',align:'center',field:'seqNo' ,width:70}">序号</th>
-        <th lay-data="{fixed:'left',align:'center',field:'applyId',width:120}">会员编号</th>
-        <th lay-data="{align:'center',field:'applyName' ,width:120}">会员姓名</th>
-        <th lay-data="{align:'center',field:'applyMobile' ,width:150}">会员手机号</th>
+        <th lay-data="{fixed:'left',align:'center',field:'applyId',width:120}">客户编号</th>
+        <th lay-data="{align:'center',field:'applyName' ,width:120}">客户姓名</th>
+        <th lay-data="{align:'center',field:'applyMobile' ,width:150}">客户手机号</th>
         <th lay-data="{align:'center',field:'applyBank',width:200}">机构</th>
+        <th lay-data="{align:'center',field:'applyProduct',width:200}">产品名称</th>
         <th lay-data="{align:'center',field:'applyProduct'width:180}">产品名称</th>
-        <th lay-data="{align:'center',field:'applyCardDate',width:200}">生成时间</th>
+        <th lay-data="{align:'center',field:'applyCardDate',width:200}">申请时间</th>
         <th lay-data="{align:'center',field:'auditStatus',width:200}">申请状态</th>
         <th lay-data="{align:'center',field:'businessPeopleCode',width:200}">推广员工号</th>
         <th lay-data="{align:'center',field:'businessPeopleName',width:200}">推广员姓名</th>

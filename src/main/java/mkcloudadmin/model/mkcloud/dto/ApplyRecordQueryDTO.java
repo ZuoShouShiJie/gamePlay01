@@ -14,6 +14,15 @@ public class ApplyRecordQueryDTO {
     private String businessPeopleName;//推广员姓名
     private String applyBeginDate;//申请时间开始
     private String applyEndDate;//申请时间结束
+private String auditStatus;
+
+    public String getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(String auditStatus) {
+        this.auditStatus = auditStatus;
+    }
 
     public String getApplyProduct() {
         return applyProduct;

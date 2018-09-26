@@ -6,7 +6,7 @@ public class MKCloudPrepaymentRuleConfigurationVO {
     private Long id;
 
     private String settlementType;
-
+    private String settlementTypeName;
     private String settlementMode;
 
     private Short settlementPeriod;
@@ -23,22 +23,57 @@ public class MKCloudPrepaymentRuleConfigurationVO {
     private String isUnitSettle;
 
     private String state;
-
+    private String stateName;
     private Date createTime;
 
     private String createUser;
-private Integer totalCount;
+private long totalCount;
     private String totalMoney;
+    private String merchantCode;
+
+    private String merchantName;
+
+    public String getMerchantCode() {
+        return merchantCode;
+    }
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    public void setMerchantCode(String merchantCode) {
+        this.merchantCode = merchantCode;
+    }
+
+    public String getMerchantName() {
+        return merchantName;
+    }
+
+    public String getSettlementTypeName() {
+        return settlementTypeName;
+    }
+
+    public void setSettlementTypeName(String settlementTypeName) {
+        this.settlementTypeName = settlementTypeName;
+    }
+
+    public void setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
+    }
 
     public String getTotalMoney() {
         return totalMoney;
     }
 
-    public Integer getTotalCount() {
+    public long getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(Integer totalCount) {
+    public void setTotalCount(long totalCount) {
         this.totalCount = totalCount;
     }
 

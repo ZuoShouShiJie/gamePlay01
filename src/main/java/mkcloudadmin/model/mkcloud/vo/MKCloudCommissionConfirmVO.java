@@ -20,7 +20,6 @@ public class MKCloudCommissionConfirmVO {
     private String businessPeopleLevelName;
     private String settlementId;
     private String state;
-
     private String createTime;
     private BigDecimal settlementCommission;
     private String stateName;

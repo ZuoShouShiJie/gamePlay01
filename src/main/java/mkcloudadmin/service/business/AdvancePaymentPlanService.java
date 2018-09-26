@@ -19,4 +19,23 @@ public interface AdvancePaymentPlanService {
      * @return
      */
     Map<String,Object> selectByPayMentPlan();
+
+
+    /**
+     * 预付款流水维护
+     * @return
+     */
+    Map<String,Object> selectWaterMaintenance(String code,String name);
+
+    /**
+     * 维护预付款流水
+     * @param map
+     * @return
+     */
+    String  addPayMentPlan(Map<String, String> map);
+/**
+ * 查询结算方式
+ *
+ */
+    Map<String,Object> selectDataDictionary();
 }

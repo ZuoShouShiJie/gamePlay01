@@ -10,7 +10,9 @@ import mkcloudadmin.model.mkcloud.po.MKCloudPaymentRecord;
 import mkcloudadmin.model.mkcloud.vo.MKCloudPaidSearchVO;
 import mkcloudadmin.model.mkcloud.vo.MKCloudUnPaidSearchVO;
 import mkcloudadmin.service.paymentmanagement.PaymentManage;
+import mkcloudadmin.util.DateUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -48,8 +50,11 @@ public class PaymentManageImpl implements PaymentManage{
         String payee = paymentQueryDTO.getPayee();
         String payeeAccount = paymentQueryDTO.getPayeeAccount();
         String costType = paymentQueryDTO.getCostType();
-        String beginDate = paymentQueryDTO.getBeginDate();
-        String endDate = paymentQueryDTO.getEndDate();
+
+        String createTime = paymentQueryDTO.getBeginDate();
+        String createTimeTwo = paymentQueryDTO.getEndDate();
+        Date beginDate =  StringUtils.isBlank(createTime)?null:(DateUtils.stringToDate(createTime+" 00:00:00",DateUtils.fm_yyyy_MM_dd_HHmmss));
+        Date endDate =    StringUtils.isBlank(createTimeTwo)?null:(DateUtils.stringToDate(createTimeTwo+" 23:59:59",DateUtils.fm_yyyy_MM_dd_HHmmss));
 
         costType = (costType==null)?"1":costType;
 
@@ -121,11 +126,17 @@ public class PaymentManageImpl implements PaymentManage{
         String payee = paymentQueryDTO.getPayee();
         String payeeAccount = paymentQueryDTO.getPayeeAccount();
         String costType = paymentQueryDTO.getCostType();
-        String beginDate = paymentQueryDTO.getBeginDate();
-        String endDate = paymentQueryDTO.getEndDate();
 
-        String confirmBeginDate = paymentQueryDTO.getConfirmBeginDate();
-        String confirmEndDate = paymentQueryDTO.getConfirmEndDate();
+        String createTime = paymentQueryDTO.getBeginDate();
+        String createTimeTwo = paymentQueryDTO.getEndDate();
+        Date beginDate =  StringUtils.isBlank(createTime)?null:(DateUtils.stringToDate(createTime+" 00:00:00",DateUtils.fm_yyyy_MM_dd_HHmmss));
+        Date endDate =    StringUtils.isBlank(createTimeTwo)?null:(DateUtils.stringToDate(createTimeTwo+" 23:59:59",DateUtils.fm_yyyy_MM_dd_HHmmss));
+
+        String confirmBeginDate1 = paymentQueryDTO.getConfirmBeginDate();
+        String confirmEndDate1 = paymentQueryDTO.getConfirmEndDate();
+
+        Date confirmBeginDate =StringUtils.isBlank(confirmBeginDate1)?null:(DateUtils.stringToDate(confirmBeginDate1+" 00:00:00",DateUtils.fm_yyyy_MM_dd_HHmmss));
+        Date confirmEndDate =    StringUtils.isBlank(confirmEndDate1)?null:(DateUtils.stringToDate(confirmEndDate1+" 23:59:59",DateUtils.fm_yyyy_MM_dd_HHmmss));
 
         costType = (costType==null)?"1":costType;
 

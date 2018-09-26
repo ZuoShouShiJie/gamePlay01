@@ -99,14 +99,14 @@ function queryOnLoad(businessPeopleId,state) {
 
     });
 }
-    function advancePayment(settltmentBeginDate,settltmentEndDate) {
+    function advancePayment(beginDate,endDate) {
         layui.use('table', function () {
             var table = layui.table;
             //第一个实例
             table.render({
                 elem: '#demo'
                 , height: 315
-                , url: 'PrepaymentRuleConfiguration/importDetailList' //数据接口
+                , url: 'PrepaymentRuleConfiguration/applicationImportDetailList' //数据接口
                 , method: 'post'
                 , page: true //开启分页
                 , cols: [[ //表头
@@ -116,14 +116,13 @@ function queryOnLoad(businessPeopleId,state) {
                     , {field: 'cusTel', title: '客户手机号'}
                     , {field: 'institutionName', title: '办卡银行'}
                     , {field: 'productName', title: '信用卡卡种'}
-                    , {field: 'applyCardDate', title: '客户推广日期'}
-                    , {field: 'applyCardTime', title: '申请通过日期'}
+                    , {field: 'applyCardDate', title: '申请日期'}
                     , {field: 'auditStatus', title: '办卡状态'}
                     /*, {field: '', title: '信用卡卡号'}*/
                 ]],
                 where: {
-                    settltmentBeginDate: $('#settltmentBeginDate').val(),
-                    settltmentEndDate: $('#settltmentEndDate').val()
+                    beginDate: $('#beginDate').val(),
+                    endDate: $('#endDate').val()
                 }
             });
         });

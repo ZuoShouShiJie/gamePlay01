@@ -37,7 +37,7 @@
         <label class="layui-form-label">推广员状态</label>
         <div class="layui-input-block">
             <input id="Yes" name="state" value="1" title="有效" checked="" type="radio" disabled>
-            <input id="No" name="state" value="0" title="无效" type="radio" disabled>
+            <input id="No" name="state" value="0" title="失效" type="radio" disabled>
         </div>
     </div>
    <div class="layui-form-item">
@@ -176,6 +176,7 @@
 </form>
 </body>
 <script th:src="@{/frame/layui-v2/layui.js}" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8" th:src="@{business/rightsmanagement/userRole.js}"></script>
 <script type="text/javascript">
     layui.use('upload', function(){
         var $ = layui.jquery

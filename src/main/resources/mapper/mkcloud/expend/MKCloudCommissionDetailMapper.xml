@@ -159,11 +159,11 @@
     <if test="cusTel != null and cusTel !=''" >
       and cus_tel = #{cusTel,jdbcType=VARCHAR}
     </if>
-    <if test="beginDate != null and beginDate !=''">
-      and create_time > #{beginDate,jdbcType=VARCHAR}
+    <if test="beginDate != null">
+      and create_time >= #{beginDate,jdbcType=TIMESTAMP}
     </if>
-    <if test="endDate != null and endDate !=''" >
-      and create_time &lt;  #{endDate,jdbcType=VARCHAR}
+    <if test="endDate != null" >
+      and create_time &lt;  #{endDate,jdbcType=TIMESTAMP}
     </if>
   </select>
 
@@ -184,11 +184,11 @@
     <if test="cusTel != null and cusTel !=''" >
       and cus_tel = #{cusTel,jdbcType=VARCHAR}
     </if>
-    <if test="beginDate != null and beginDate !=''" >
-      and create_time > #{beginDate,jdbcType=VARCHAR}
+    <if test="beginDate != null " >
+      and create_time >= #{beginDate,jdbcType=TIMESTAMP}
     </if>
-    <if test="endDate != null and endDate !=''" >
-      and create_time &lt;  #{endDate,jdbcType=VARCHAR}
+    <if test="endDate != null " >
+      and create_time &lt;  #{endDate,jdbcType=TIMESTAMP}
     </if>
     order by id
     <include refid="base.limit" />

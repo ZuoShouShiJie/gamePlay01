@@ -196,10 +196,9 @@ public class MembersServiceImpl implements MembersService {
                 cell = row.createCell(7, Cell.CELL_TYPE_STRING);
                 if ("0".equals(members.get(i).getBusinessType())) {
                     cell.setCellValue("内部推广员");
-                } else {
-                    cell.setCellValue("外部推广员");
+                }else{
+                    cell.setCellValue("");
                 }
-
                 // 注册时间
                 cell = row.createCell(8, cell.CELL_TYPE_STRING);
                 cell.setCellValue(members.get(i).getRegisterTime());
@@ -217,11 +216,11 @@ public class MembersServiceImpl implements MembersService {
                     cell.setCellValue("失败");
                 } else if ("1".equals(members.get(i).getBusinessStatus())) {
                     cell.setCellValue("成功");
-                } else {
+                } else  if("2".equals(members.get(i).getBusinessStatus())){
+                    cell.setCellValue("审核中");
+                }else{
                     cell.setCellValue("");
                 }
-
-
             }
         }
         return workbook;

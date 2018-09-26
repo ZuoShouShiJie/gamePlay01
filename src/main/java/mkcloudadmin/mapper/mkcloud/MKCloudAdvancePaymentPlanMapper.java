@@ -1,12 +1,8 @@
 package mkcloudadmin.mapper.mkcloud;
 
-import mkcloudadmin.model.base.Page;
 import mkcloudadmin.model.mkcloud.po.MKCloudAdvancePaymentPlan;
-import mkcloudadmin.model.mkcloud.po.MKCloudBusinessPeople;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 public interface MKCloudAdvancePaymentPlanMapper {
     int deleteByPrimaryKey(Long id);

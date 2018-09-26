@@ -6,6 +6,8 @@ import java.util.Date;
 public class MKCloudAdvancePaymentPlan {
     private Long id;
 
+    private String merchantCode;
+
     private String adjustType;
 
     private BigDecimal advance;
@@ -28,6 +30,14 @@ public class MKCloudAdvancePaymentPlan {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getMerchantCode() {
+        return merchantCode;
+    }
+
+    public void setMerchantCode(String merchantCode) {
+        this.merchantCode = merchantCode == null ? null : merchantCode.trim();
     }
 
     public String getAdjustType() {

@@ -4,6 +4,7 @@ import mkcloudadmin.model.base.Page;
 import mkcloudadmin.model.mkcloud.po.MKCloudPaymentRecord;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MKCloudPaymentRecordMapper {
@@ -21,20 +22,20 @@ public interface MKCloudPaymentRecordMapper {
 
     List<MKCloudPaymentRecord> selectBySettlementIds(@Param("settlementIds") List<String> settlementIds);
 
-    Long selectUnpaidDataCount(@Param("payee") String payee,@Param("payeeAccount") String payeeAccount,@Param("beginDate") String beginDate,
-                               @Param("endDate") String endDate,@Param("costType") String costType);
+    Long selectUnpaidDataCount(@Param("payee") String payee, @Param("payeeAccount") String payeeAccount, @Param("beginDate") Date beginDate,
+                               @Param("endDate") Date endDate, @Param("costType") String costType);
 
-    List<MKCloudPaymentRecord> selectUnpaidDataList(@Param("payee") String payee,@Param("payeeAccount") String payeeAccount,@Param("beginDate") String beginDate,
-                               @Param("endDate") String endDate,@Param("costType") String costType,@Param("page") Page<MKCloudPaymentRecord> page);
+    List<MKCloudPaymentRecord> selectUnpaidDataList(@Param("payee") String payee,@Param("payeeAccount") String payeeAccount,@Param("beginDate") Date beginDate,
+                               @Param("endDate") Date endDate,@Param("costType") String costType,@Param("page") Page<MKCloudPaymentRecord> page);
 
 
-     Long selectPaidDataCount(@Param("payee") String payee,@Param("payeeAccount") String payeeAccount,@Param("beginDate") String beginDate,
-                              @Param("endDate") String endDate,@Param("costType") String costType,@Param("confirmBeginDate")String confirmBeginDate,
-                              @Param("confirmEndDate") String confirmEndDate);
+     Long selectPaidDataCount(@Param("payee") String payee,@Param("payeeAccount") String payeeAccount,@Param("beginDate") Date beginDate,
+                              @Param("endDate") Date endDate,@Param("costType") String costType,@Param("confirmBeginDate")Date confirmBeginDate,
+                              @Param("confirmEndDate") Date confirmEndDate);
 
-    List<MKCloudPaymentRecord> selectPaidDataList(@Param("payee") String payee,@Param("payeeAccount") String payeeAccount,@Param("beginDate") String beginDate,
-                                                    @Param("endDate") String endDate,@Param("costType") String costType,@Param("confirmBeginDate")String confirmBeginDate,
-                                                  @Param("confirmEndDate") String confirmEndDate,@Param("page") Page<MKCloudPaymentRecord> page);
+    List<MKCloudPaymentRecord> selectPaidDataList(@Param("payee") String payee,@Param("payeeAccount") String payeeAccount,@Param("beginDate") Date beginDate,
+                                                    @Param("endDate") Date endDate,@Param("costType") String costType,@Param("confirmBeginDate")Date confirmBeginDate,
+                                                  @Param("confirmEndDate") Date confirmEndDate,@Param("page") Page<MKCloudPaymentRecord> page);
 
     List<MKCloudPaymentRecord> selectUnpaidAllDataList(@Param("payee") String payee,@Param("payeeAccount") String payeeAccount,@Param("beginDate") String beginDate,
                                                        @Param("endDate") String endDate,@Param("costType") String costType);

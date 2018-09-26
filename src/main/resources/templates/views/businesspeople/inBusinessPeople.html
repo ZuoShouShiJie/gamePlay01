@@ -175,10 +175,13 @@
                             subForm.find('#contractView').attr('src', data.contractUrl);
                         }
                         if(data.state=="1"){
-                            subForm.find('#Yes').attr("checked","checked");
+                            subForm.find('#Yes').prop("checked",true);
                         }else {
-                            subForm.find('#No').attr("checked","checked");
+                            subForm.find('#No').prop("checked",true);
                         }
+
+                        var iframeWin = window[layero.find('iframe')[0]['name']];
+                        iframeWin.queryUserTest();
                     }
                     ,end: function () {
                         //location.reload();

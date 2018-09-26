@@ -25,6 +25,15 @@ public class MKCloudNoBusiPerSearchVO {
 
     private String claim;  //认领状态
     private Long id;
+    private String applyStatus;//申请时间
+
+    public String getApplyStatus() {
+        return applyStatus;
+    }
+
+    public void setApplyStatus(String applyStatus) {
+        this.applyStatus = applyStatus;
+    }
 
     public Long getId() {
         return id;

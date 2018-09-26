@@ -92,7 +92,7 @@ public class BusinessPeopleServiceImpl implements BusinessPeopleService {
      */
     @Transactional
     @Override
-    public boolean addBusinessPeopleIn(Map<String, String> map) {
+    public String addBusinessPeopleIn(Map<String, String> map) {
         MKCloudBusinessPeople people=  businessPeopleMapper.selectByTel(map.get("tel"));
         if(null==people) {
             List<MKCloudBusinessPeople> peopleList = businessPeopleMapper.selectByBusinessPeopleCode();
@@ -137,7 +137,11 @@ public class BusinessPeopleServiceImpl implements BusinessPeopleService {
             MKCloudMemberInfo info = memberInfoMapper.selectByTel(map.get("tel"));
             MKCloudMemberInfo memberInfo = new MKCloudMemberInfo();
             memberInfo.setTel(map.get("tel"));
-            memberInfo.setType(BusinessPeopleTypeEnum.PEOPLE_TYPE_IN1.getCode());
+            if("0".equals(map.get("state"))){
+                memberInfo.setType(BusinessPeopleTypeEnum.PEOPLE_TYPE_PEOPLE.getCode());
+            }else if("1".equals(map.get("state"))){
+                memberInfo.setType(BusinessPeopleTypeEnum.PEOPLE_TYPE_IN1.getCode());
+            }
             if (null == info) {
                 memberInfo.setChannelCode("0101");
                 memberInfo.setMemberName(map.get("businessPeopleName"));
@@ -147,16 +151,15 @@ public class BusinessPeopleServiceImpl implements BusinessPeopleService {
                 memberInfo.setHasBusiness(StaticEnum.INVALID.getCode());
                 memberInfoMapper.insertSelective(memberInfo);
             }else{
+                if(null!=info && null!=info.getMemberName() && !"".equals(info.getMemberName()) && !map.get("businessPeopleName").equals(info.getMemberName())) {
+                    return  "输入的姓名"+map.get("businessPeopleName")+"与注册会员时不同!";
+                }
                 memberInfoMapper.updateBySelective(memberInfo);
             }
 
             MKCloudBusinessPeople mkCloudBusinessPeople = new MKCloudBusinessPeople();
             mkCloudBusinessPeople.setBusinessPeopleCode(peoPleCode);
-            if(null!=info && null!=info.getMemberName() && !"".equals(info.getMemberName())) {
-                mkCloudBusinessPeople.setBusinessPeopleName(info.getMemberName());
-            }else{
-                mkCloudBusinessPeople.setBusinessPeopleName(map.get("businessPeopleName"));
-            }
+            mkCloudBusinessPeople.setBusinessPeopleName(map.get("businessPeopleName"));
             mkCloudBusinessPeople.setIdNo(map.get("idNo"));
             mkCloudBusinessPeople.setTel(map.get("tel"));
             mkCloudBusinessPeople.setWchat(map.get("wchat"));
@@ -176,11 +179,10 @@ public class BusinessPeopleServiceImpl implements BusinessPeopleService {
             mkCloudBusinessPeopleAccount.setBusinessPeopleId(peoPleCode);
             mkCloudBusinessPeopleAccount.setAccountCode(map.get("accountCode"));
             mkCloudBusinessPeopleAccount.setAccountState(map.get("1"));
-
             businessPeopleAccountMapper.insertSelective(mkCloudBusinessPeopleAccount);
-            return true;
+            return "";
         }else{
-            return false;
+           return   "输入的手机号已存在!";
         }
 
     }
@@ -191,17 +193,16 @@ public class BusinessPeopleServiceImpl implements BusinessPeopleService {
      */
     @Transactional
     @Override
-    public boolean updateBusinessPeopleIn(Map<String, String> map) {
+    public String updateBusinessPeopleIn(Map<String, String> map) {
         boolean ok=false;
+
         List<MKCloudBusinessPeopleAtt> list=new ArrayList<>();
         String businessPeopleCode = map.get("businessPeopleCode");
-
         MKCloudBusinessPeopleAtt attr=new MKCloudBusinessPeopleAtt();
         attr.setAttachmentName("faceOfIDCardUrl");
         attr.setAttachmentSize("13k");
         attr.setAttachmentAddress(map.get("faceOfIDCardUrl"));
         list.add(attr);
-
         attr=new MKCloudBusinessPeopleAtt();
         attr.setAttachmentName("backOfIDCardUrl");
         attr.setAttachmentSize("13k");
@@ -220,6 +221,8 @@ public class BusinessPeopleServiceImpl implements BusinessPeopleService {
         attr.setAttachmentSize("13k");
         attr.setAttachmentAddress(map.get("contractUrl"));
         list.add(attr);
+
+
         MKCloudBusinessPeopleDetailVo people = new MKCloudBusinessPeopleDetailVo();
         people.setId(Long.valueOf(map.get("id")));
         people.setBusinessPeopleCode(map.get("businessPeopleCode"));
@@ -241,7 +244,23 @@ public class BusinessPeopleServiceImpl implements BusinessPeopleService {
         people.setAttachmentType(map.get("attachmentType"));
         people.setAttachmentName(map.get("attachmentName"));
         people.setAttachmentSize(map.get("attachmentSize"));
-        businessPeopleMapper.updateByPrimaryKeySelective(reConverPeople(people));
+
+        MKCloudBusinessPeople people1=  businessPeopleMapper.selectPeopleCode(people.getBusinessPeopleCode());
+        if(null!=people1 && null!=people1.getTel() && !"".equals(people1.getTel()) && !people.getTel().equals(people1.getTel())){
+            MKCloudMemberInfo memberInfo1=  memberInfoMapper.selectByTel(people1.getTel());
+            MKCloudMemberInfo memberInfo2=  memberInfoMapper.selectByTel(people.getTel());
+            if(null!=memberInfo1 && null!=memberInfo2 && !memberInfo1.getId().equals(memberInfo2.getId())){
+                return  "输入的手机号已存在!";
+            }else{
+                memberInfo1.setTel(people.getTel());
+                memberInfo1.setMemberName(people.getBusinessPeopleName());
+                memberInfoMapper.updateByPrimaryKeySelective(memberInfo1);
+            }
+
+            businessPeopleMapper.updateByPrimaryKeySelective(reConverPeople(people));
+        }else{
+            businessPeopleMapper.updateByPrimaryKeySelective(reConverPeople(people));
+        }
         if(null!=list  && list.size()>0) {
             for (MKCloudBusinessPeopleAtt att : list) {
                 if(!"".equals(att.getAttachmentAddress()) && null!=att.getAttachmentAddress()) {
@@ -263,8 +282,20 @@ public class BusinessPeopleServiceImpl implements BusinessPeopleService {
                 businessPeopleAccountMapper.insertSelective(reConverAccount(people));
             }
         }
-        return  true;
-
+        if("0".equals(people.getState())) {
+            MKCloudMemberInfo memberInfo = new MKCloudMemberInfo();
+            memberInfo.setTel(people.getTel());
+            memberInfo.setState(people.getState());
+            memberInfo.setType(BusinessPeopleTypeEnum.PEOPLE_TYPE_PEOPLE.getCode());
+            memberInfoMapper.updateBySelective(memberInfo);
+        }else if("1".equals(people.getState())){
+            MKCloudMemberInfo memberInfo = new MKCloudMemberInfo();
+            memberInfo.setTel(people.getTel());
+            memberInfo.setState(people.getState());
+            memberInfo.setType(BusinessPeopleTypeEnum.PEOPLE_TYPE_IN1.getCode());
+            memberInfoMapper.updateBySelective(memberInfo);
+        }
+        return  "";
     }
 
     /**
@@ -282,7 +313,6 @@ public class BusinessPeopleServiceImpl implements BusinessPeopleService {
         memberInfoMapper.updateByStatic(statc, people.getTel());
         }*/
     }
-
     public static MKCloudBusinessPeopleDetailVo reConver(MKCloudBusinessPeople people,List<MKCloudBusinessPeopleAccount> account,Integer number ,Integer mathNumber,List<MKCloudBusinessPeopleAtt> atts){
         MKCloudBusinessPeopleDetailVo detail=new MKCloudBusinessPeopleDetailVo();
         detail.setAllCommission(number.longValue());

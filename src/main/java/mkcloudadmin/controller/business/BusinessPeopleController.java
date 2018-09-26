@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,11 +74,29 @@ public class BusinessPeopleController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/addBusinessPeopleIn")
     @ResponseBody
-    public boolean addBusinessPeopleIn(@RequestParam Map<String, String> param) throws Exception {
+    public Map<String, Object>addBusinessPeopleIn(@RequestParam Map<String, String> param) throws Exception {
+        Map<String, Object>  res = new HashMap<>();
         if("add".equals(param.get("opMethod"))){
-            return businessPeopleService.addBusinessPeopleIn(param);
+             String resString= businessPeopleService.addBusinessPeopleIn(param);
+            if(!StringUtils.isEmpty(resString) && !"".equals(resString)){
+                res.put("code",1);
+                res.put("msg", resString);
+            }else {
+                res.put("code",0);
+                res.put("msg", "成功");
+            }
+            return  res;
         }else{
-            return businessPeopleService.updateBusinessPeopleIn(param);
+            String resString= businessPeopleService.updateBusinessPeopleIn(param);
+            if(!StringUtils.isEmpty(resString) && !"".equals(resString)){
+                res.put("code",1);
+                res.put("msg", resString);
+            }else {
+                System.out.println("888*********************************************************************************************"+resString);
+                res.put("code",0);
+                res.put("msg", "成功");
+            }
+            return  res;
         }
     }
 

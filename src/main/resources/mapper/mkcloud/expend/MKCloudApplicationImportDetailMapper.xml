@@ -79,7 +79,7 @@
             and   apply_mobile = #{applyMobile,jdbcType=VARCHAR}
         </if>
         <if test="beginDate != '' and beginDate != null" >
-            and apply_card_time > #{beginDate,jdbcType=VARCHAR}
+            and apply_card_time >= #{beginDate,jdbcType=VARCHAR}
         </if>
         <if test="endDate != '' and endDate != null" >
             and apply_card_time &lt;  #{endDate,jdbcType=VARCHAR}
@@ -98,7 +98,7 @@
             and   apply_mobile = #{applyMobile,jdbcType=VARCHAR}
         </if>
         <if test="beginDate != '' and beginDate != null" >
-            and apply_card_time > #{beginDate,jdbcType=VARCHAR}
+            and apply_card_time >= #{beginDate,jdbcType=VARCHAR}
         </if>
         <if test="endDate != '' and endDate != null" >
             and apply_card_time &lt;  #{endDate,jdbcType=VARCHAR}
@@ -133,10 +133,13 @@
             AND business_people_name = #{businessPeopleName,jdbcType=VARCHAR}
         </if>
         <if test="applyBeginDate != null and applyBeginDate !=''">
-            AND apply_card_time > #{applyBeginDate,jdbcType=VARCHAR}
+            AND apply_card_time >= #{applyBeginDate,jdbcType=VARCHAR}
         </if>
         <if test="applyEndDate != null and applyEndDate !=''">
             AND apply_card_time &lt;= #{applyEndDate,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status !=''">
+            AND  audit_status = #{status,jdbcType=VARCHAR}
         </if>
     </select>
 
@@ -173,6 +176,9 @@
         </if>
         <if test="applyEndDate != null and applyEndDate !=''">
             AND apply_card_time &lt;= #{applyEndDate,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status !=''">
+            AND  audit_status = #{status,jdbcType=VARCHAR}
         </if>
         <include refid="base.limit" />
     </select>
@@ -280,5 +286,41 @@
            and version = #{version,jdbcType=VARCHAR}
        </if>
   </select>
+
+    <select id="querySuccessCount" resultType="java.lang.Integer">
+        SELECT count(id) FROM mkcloud_application_import_detail WHERE is_delete = '0' AND audit_status = '成功'
+    </select>
+
+    <select id="querySuccessOwnCount" resultType="java.lang.Integer">
+        SELECT count(id) FROM mkcloud_application_import_detail WHERE is_delete = '0' AND audit_status = '成功' AND (business_people_code IS NULL OR business_people_code ='')
+    </select>
+
+    <select id="querySuccessPromotersCount" resultType="java.lang.Integer">
+        SELECT count(id) FROM mkcloud_application_import_detail WHERE is_delete = '0' AND audit_status = '成功' AND (business_people_code IS NOT NULL AND business_people_code !='')
+    </select>
+
+    <select id="queryFailCount" resultType="java.lang.Integer">
+        SELECT count(id) FROM mkcloud_application_import_detail WHERE is_delete = '0' AND audit_status = '无进件记录/拒件/二卡'
+    </select>
+
+    <select id="queryFailOwnCount" resultType="java.lang.Integer">
+        SELECT count(id) FROM mkcloud_application_import_detail WHERE is_delete = '0' AND audit_status = '无进件记录/拒件/二卡' AND (business_people_code IS NULL OR business_people_code ='')
+    </select>
+
+    <select id="queryFailPromotersCount" resultType="java.lang.Integer">
+        SELECT count(id) FROM mkcloud_application_import_detail WHERE is_delete = '0' AND audit_status = '无进件记录/拒件/二卡' AND (business_people_code IS NOT NULL AND business_people_code !='')
+    </select>
+
+    <select id="queryInCount" resultType="java.lang.Integer">
+        SELECT count(id) FROM mkcloud_application_import_detail WHERE is_delete = '0' AND audit_status != '成功' AND audit_status != '无进件记录/拒件/二卡'
+    </select>
+
+    <select id="queryInOwnCount" resultType="java.lang.Integer">
+        SELECT count(id) FROM mkcloud_application_import_detail WHERE is_delete = '0' AND audit_status != '成功' AND audit_status != '无进件记录/拒件/二卡' AND (business_people_code IS NULL OR business_people_code ='')
+    </select>
+
+    <select id="queryInPromotersCount" resultType="java.lang.Integer">
+        SELECT count(id) FROM mkcloud_application_import_detail WHERE is_delete = '0' AND audit_status != '成功' AND audit_status != '无进件记录/拒件/二卡' AND (business_people_code IS NOT NULL AND business_people_code !='')
+    </select>
 
 </mapper>

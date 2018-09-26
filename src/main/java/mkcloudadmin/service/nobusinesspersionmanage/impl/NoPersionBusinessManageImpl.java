@@ -36,6 +36,8 @@ public class NoPersionBusinessManageImpl implements NoPersionBusinessManage{
     private MKCloudBusinessPeopleAttMapper mkCloudBusinessPeopleAttMapper;
     @Autowired
     private MKCloudBusinessPeopleDeployLogMapper mkCloudBusinessPeopleDeployLogMapper;
+@Autowired
+    private MKCloudBankImportDetailMapper mkCloudBankImportDetailMapper;
 
     @Override
     public Map<String, Object> queryNoBusinessPersionData(NoBusinessPerSearchDTO noBusinessPerSearchDTO, Page<MKCloudApplicationImportDetail> mkCloudApplicationImportDetailPage) {
@@ -63,6 +65,7 @@ public class NoPersionBusinessManageImpl implements NoPersionBusinessManage{
                     mkCloudNoBusiPerSearchVO.setApplyCardTime(mkc.getApplyCardTime());
                     mkCloudNoBusiPerSearchVO.setBusinessPeopleCode(mkc.getBusinessPeopleCode());
                     mkCloudNoBusiPerSearchVO.setBusinessPeopleName(mkc.getBusinessPeopleName());
+                    mkCloudNoBusiPerSearchVO.setApplyStatus(mkc.getAuditStatus());
                     mkCloudNoBusiPerSearchVO.setClaim("待认领");
                     mkCloudNoBusiPerSearchVO.setId(mkc.getId());
 
@@ -94,16 +97,25 @@ public class NoPersionBusinessManageImpl implements NoPersionBusinessManage{
         String logoUrl = param.get("logoUrl");
         Long id = Long.valueOf(param.get("pid"));
         String applyName = param.get("applyName");
-        String applyMobile = param.get("applyMobile");
+        String applyMobile1 = param.get("applyMobile");
 
-        applyMobile = applyMobile.substring(0, 3) + "____" + applyMobile.substring(7, 11);
+        String applyMobile = applyMobile1.substring(0, 3) + "____" + applyMobile1.substring(7, 11);
 
         //更新记录导入表
         MKCloudApplicationImportDetail mkCloudApplicationImportDetail = new MKCloudApplicationImportDetail();
         mkCloudApplicationImportDetail.setBusinessPeopleName(mkCloudBusinessPeople.getBusinessPeopleName());
         mkCloudApplicationImportDetail.setBusinessPeopleCode(mkCloudBusinessPeople.getBusinessPeopleCode());
-        mkCloudApplicationImportDetail.setId(id);
-        mkCloudApplicationImportDetailMapper.updateByPrimaryKeySelective(mkCloudApplicationImportDetail);
+        mkCloudApplicationImportDetail.setApplyName(applyName);
+        mkCloudApplicationImportDetail.setApplyMobile(applyMobile1);
+        mkCloudApplicationImportDetailMapper.updateByNameCode(mkCloudApplicationImportDetail);
+
+        MKCloudBankImportDetail mkCloudBankImportDetail = new MKCloudBankImportDetail();
+        mkCloudBankImportDetail.setBusinessPeopleName(mkCloudBusinessPeople.getBusinessPeopleName());
+        mkCloudBankImportDetail.setBusinessPeopleCode(mkCloudBusinessPeople.getBusinessPeopleCode());
+        mkCloudBankImportDetail.setCusName(applyName);
+        mkCloudBankImportDetail.setCusTel(applyMobile1);
+        mkCloudBankImportDetailMapper.updateByNameCode(mkCloudBankImportDetail);
+
         //更新会员表
       //  MKCloudMemberInfo mkCloudMemberInfoSearch = mkCloudMemberInfoMapper.selectByFullConditionInfo(applyMobile,applyName);
         MKCloudMemberInfo mkCloudMemberInfoSearch = mkCloudMemberInfoMapper.selectByClientBaseInfo(applyMobile,applyName);

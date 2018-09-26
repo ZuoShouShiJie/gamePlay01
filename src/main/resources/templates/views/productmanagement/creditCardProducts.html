@@ -198,6 +198,8 @@
                         }else {
                             subForm.find('#No').attr("checked","checked");
                         }
+                        var iframeWin = window[layero.find('iframe')[0]['name']];
+                        iframeWin.updateForm();
                     }
                     ,end: function () {
                         //location.reload();

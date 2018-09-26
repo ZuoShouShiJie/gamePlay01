@@ -234,6 +234,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="mkcloudadmin.model.mkcloud.po.MKCloudBankImportDetailTem">
     update mkcloud_bank_import_detail_tem
     set batch_id = #{batchId,jdbcType=VARCHAR},

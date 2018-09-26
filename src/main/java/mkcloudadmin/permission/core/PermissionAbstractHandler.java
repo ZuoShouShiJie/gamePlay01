@@ -72,7 +72,8 @@ public abstract class PermissionAbstractHandler implements PermissionHandler {
                             this.userNotPermission(request, response, baseResponse);
                             return false;
                         } else {
-                            response.setCharacterEncoding("UTF-8");
+//                            response.setCharacterEncoding("UTF-8");
+                            response.setContentType("text/html;charset=utf-8");
                             response.getWriter().write(JSON.toJSONString(baseResponse));
                             return false;
                         }

@@ -13,8 +13,6 @@ function queryOnLoad(id) {
             alert("请求失败");
         }
     });
-
-
     /*$.ajax({
         url : "question/queryQuesttionById",
         async : true,

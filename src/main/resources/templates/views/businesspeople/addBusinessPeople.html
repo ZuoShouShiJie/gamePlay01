@@ -47,7 +47,7 @@
         <label class="layui-form-label">推广员状态</label>
         <div class="layui-input-block">
             <input id="Yes" name="state" value="1" title="有效" checked="" type="radio">
-            <input id="No" name="state" value="0" title="无效" type="radio">
+            <input id="No" name="state" value="0" title="失效" type="radio">
         </div>
     </div>
     <div class="layui-form-item " id="displayclass">
@@ -87,7 +87,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">推广员手机号</label>
         <div class="layui-input-inline">
-            <input id="tel" name="tel" lay-verify="required" autocomplete="off" placeholder="必填" class="layui-input"
+            <input id="tel" name="tel" lay-verify="phone" autocomplete="off" placeholder="必填" class="layui-input"
                    type="text">
         </div>
     </div>
@@ -101,7 +101,7 @@
         </div>
         <label class="layui-form-label">推广人银行卡号</label>
         <div class="layui-input-inline">
-            <input id="accountCode" name="accountCode" lay-verify="required" autocomplete="off" placeholder="必填"
+            <input id="accountCode" name="accountCode" lay-verify="count" autocomplete="off" placeholder="必填"
                    class="layui-input" type="text">
         </div>
     </div>
@@ -206,18 +206,17 @@
 </form>
 </body>
 <script th:src="@{/frame/layui-v2/layui.js}" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8" th:src="@{business/rightsmanagement/userRole.js}"></script>
 <script type="text/javascript">
     layui.use('upload', function () {
         var $ = layui.jquery
             , upload = layui.upload;
         if($('#opMethod').val()=="edit"){
-            $('#tel').attr("disabled","disabled");
             $('#businessPeopleName').attr("disabled","disabled");
         }
         if($('#opMethod').val()=="add"){
             $('#displayclass').addClass("displaya");
         }
-
         $("#tel").blur(function(){
             $.ajax({
                 url: "institution/queryInstitution",
@@ -314,30 +313,27 @@
         var form = layui.form;
         var $ = layui.$;//获取jquery组件
         selectRoleName();
+        //自定义验证规则
         form.verify({
-            noZeroInteger: function (value) {
-                if (!new RegExp(/^[1-9]\d*$/).test(value)) {
-                    return '请输入数字';
-                }
-            }
+            phone: [/^[0-9]\d*$/, '请输入正确的手机号码'],
+            count: [/^[0-9]\d*$/, '请输入正确的银行卡号']
         });
+
         //监听提交
         form.on('submit(add_button)', function (editData) {
             params = editData.field;
             // 发现有字段变更之后，通过ajax更新所有字段
-            $.post("businessPeople/addBusinessPeopleIn", params, function (result) {
-                if (result) {
-                    alert('保存成功！');
+            $.post("businessPeople/addBusinessPeopleIn", params, function (res) {
+                if (res.code!=1) {
                     /*var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引（父类的弹框）
                     parent.layer.close(index); //再执行关闭*/
+                    alert('保存成功！');
                     window.parent.location.reload();
-                    //layer.alert('保存成功！');
                 }else{
-                    //layer.alert('保存失败：' + result.errorMessage);
-                   alert('该手机号用户已存在,保存失败!');
-                }
-            });
-            return false;
+                    alert('保存失败：' + res.msg);
+        }
+    });
+    return false;
         });
         function selectRoleName() {
             $.ajax({

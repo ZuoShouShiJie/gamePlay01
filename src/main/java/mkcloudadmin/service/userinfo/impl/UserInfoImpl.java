@@ -38,6 +38,10 @@ public class UserInfoImpl implements UserInfo {
 
     @Override
     public MKCloudManageUser queryManageUser(String userName) {
+
+
+
+
         MKCloudManageUser mkCloudManageUser = mkCloudManageUserMapper.queryByUserName(userName);
         return mkCloudManageUser;
     }

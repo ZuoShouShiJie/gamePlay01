@@ -47,15 +47,16 @@ public class ApplyRecordServiceImpl implements ApplyRecordService {
         String applyName = applyRecordQueryDTO.getApplyName();
         String applyMobile = applyRecordQueryDTO.getApplyMobile();
         String batchId = applyRecordQueryDTO.getBatchId();
+        String status=applyRecordQueryDTO.getAuditStatus();
         String businessPeopleCode = applyRecordQueryDTO.getBusinessPeopleCode();
         String businessPeopleName = applyRecordQueryDTO.getBusinessPeopleName();
         String applyBeginDate = applyRecordQueryDTO.getApplyBeginDate();
         String applyEndDate = applyRecordQueryDTO.getApplyEndDate();
 
         List<MKCloudApplicationImportDetailVO> detailVOList = new ArrayList<>();
-        Long total = mkCloudApplicationImportDetailMapper.queryApplyCount(applyProduct,applyName,applyMobile,batchId,businessPeopleCode,businessPeopleName,applyBeginDate,applyEndDate);
+        Long total = mkCloudApplicationImportDetailMapper.queryApplyCount(applyProduct,applyName,applyMobile,batchId,businessPeopleCode,businessPeopleName,applyBeginDate,applyEndDate,status);
         if(total > 0){
-            List<MKCloudApplicationImportDetail> detailList = mkCloudApplicationImportDetailMapper.queryApplyRecord(applyProduct,applyName,applyMobile,batchId,businessPeopleCode,businessPeopleName,applyBeginDate,applyEndDate,page);
+            List<MKCloudApplicationImportDetail> detailList = mkCloudApplicationImportDetailMapper.queryApplyRecord(applyProduct,applyName,applyMobile,batchId,businessPeopleCode,businessPeopleName,applyBeginDate,applyEndDate,status,page);
             if(detailList != null && detailList.size() > 0){
                 MKCloudApplicationImportDetailVO detailVO = null;
                 Long sum = 1l;

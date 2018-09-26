@@ -3,6 +3,7 @@
 <mapper namespace="mkcloudadmin.mapper.mkcloud.MKCloudPrepaymentRuleConfigurationMapper" >
   <resultMap id="BaseResultMap" type="mkcloudadmin.model.mkcloud.po.MKCloudPrepaymentRuleConfiguration" >
     <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="merchant_code" property="merchantCode" jdbcType="VARCHAR" />
     <result column="settlement_type" property="settlementType" jdbcType="VARCHAR" />
     <result column="settlement_mode" property="settlementMode" jdbcType="VARCHAR" />
     <result column="settlement_period" property="settlementPeriod" jdbcType="DECIMAL" />
@@ -17,7 +18,7 @@
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, settlement_type, settlement_mode, settlement_period, settlement_period_unit, 
+    id, merchant_code, settlement_type, settlement_mode, settlement_period, settlement_period_unit, 
     settltment_begin_date, settlement_end_date, price, `show`, is_unit_settle, `state`, 
     create_time, create_user
   </sql>
@@ -35,16 +36,16 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into mkcloud_prepayment_rule_configuration (settlement_type, settlement_mode, settlement_period, 
-      settlement_period_unit, settltment_begin_date, 
-      settlement_end_date, price, `show`, 
-      is_unit_settle, `state`, create_time, 
-      create_user)
-    values (#{settlementType,jdbcType=VARCHAR}, #{settlementMode,jdbcType=VARCHAR}, #{settlementPeriod,jdbcType=DECIMAL}, 
-      #{settlementPeriodUnit,jdbcType=VARCHAR}, #{settltmentBeginDate,jdbcType=DATE}, 
-      #{settlementEndDate,jdbcType=DATE}, #{price,jdbcType=DECIMAL}, #{show,jdbcType=VARCHAR}, 
-      #{isUnitSettle,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=VARCHAR})
+    insert into mkcloud_prepayment_rule_configuration (merchant_code, settlement_type, settlement_mode, 
+      settlement_period, settlement_period_unit, 
+      settltment_begin_date, settlement_end_date, price, 
+      `show`, is_unit_settle, `state`, 
+      create_time, create_user)
+    values (#{merchantCode,jdbcType=VARCHAR}, #{settlementType,jdbcType=VARCHAR}, #{settlementMode,jdbcType=VARCHAR}, 
+      #{settlementPeriod,jdbcType=DECIMAL}, #{settlementPeriodUnit,jdbcType=VARCHAR}, 
+      #{settltmentBeginDate,jdbcType=DATE}, #{settlementEndDate,jdbcType=DATE}, #{price,jdbcType=DECIMAL}, 
+      #{show,jdbcType=VARCHAR}, #{isUnitSettle,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="mkcloudadmin.model.mkcloud.po.MKCloudPrepaymentRuleConfiguration" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -52,6 +53,9 @@
     </selectKey>
     insert into mkcloud_prepayment_rule_configuration
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="merchantCode != null" >
+        merchant_code,
+      </if>
       <if test="settlementType != null" >
         settlement_type,
       </if>
@@ -90,6 +94,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="merchantCode != null" >
+        #{merchantCode,jdbcType=VARCHAR},
+      </if>
       <if test="settlementType != null" >
         #{settlementType,jdbcType=VARCHAR},
       </if>
@@ -131,6 +138,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="mkcloudadmin.model.mkcloud.po.MKCloudPrepaymentRuleConfiguration" >
     update mkcloud_prepayment_rule_configuration
     <set >
+      <if test="merchantCode != null" >
+        merchant_code = #{merchantCode,jdbcType=VARCHAR},
+      </if>
       <if test="settlementType != null" >
         settlement_type = #{settlementType,jdbcType=VARCHAR},
       </if>
@@ -172,7 +182,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="mkcloudadmin.model.mkcloud.po.MKCloudPrepaymentRuleConfiguration" >
     update mkcloud_prepayment_rule_configuration
-    set settlement_type = #{settlementType,jdbcType=VARCHAR},
+    set merchant_code = #{merchantCode,jdbcType=VARCHAR},
+      settlement_type = #{settlementType,jdbcType=VARCHAR},
       settlement_mode = #{settlementMode,jdbcType=VARCHAR},
       settlement_period = #{settlementPeriod,jdbcType=DECIMAL},
       settlement_period_unit = #{settlementPeriodUnit,jdbcType=VARCHAR},

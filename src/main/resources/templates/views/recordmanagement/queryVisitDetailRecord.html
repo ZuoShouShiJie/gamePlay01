@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <title>申卡数据查询</title>
+    <title>申卡进度查询</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -37,15 +37,26 @@
         <div class="layui-input-inline">
             <input class="layui-input" id="business_people_name">
         </div>
+        <label class="layui-form-label" style="width: 100px">申请状态：</label>
+        <div class="layui-input-inline">
+            <select name="auditStatus" id="auditStatus" class="layui-input">
+                <option value="">请选择</option>
+                <option value="成功">成功</option>
+                <option value="资料提交中">资料提交中</option>
+                <option value="无进件记录/拒件/二卡">无进件记录/拒件/二卡</option>
+                <option value="银行审核中">银行审核中</option>
+                <!--<option value="2">待审核</option>-->
+            </select>
+        </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 100px">申请时间：</label>
         <div class="layui-input-inline">
-            <input type="text" class="layui-input" id="applyBeginDate" placeholder="在此开始">
+            <input type="text" class="layui-input" id="applyBeginDate" placeholder="yyyy-MM-dd">
         </div>
         <label class="layui-form-label"style="width: 10px;">~</label>
         <div class="layui-input-inline">
-            <input type="text" class="layui-input" id="applyEndDate" placeholder="在此之前">
+            <input type="text" class="layui-input" id="applyEndDate" placeholder="yyyy-MM-dd">
         </div>
     </div>
     </br>
@@ -104,7 +115,7 @@
                         businessPeopleName: $('#business_people_name').val(),
                         applyBeginDate: $('#applyBeginDate').val(),
                         applyEndDate: $('#applyEndDate').val(),
-                        //registerEndDate: $('#auditStatus').val()
+                        auditStatus: $('#auditStatus').val()
                     }
                 });
             },
@@ -117,7 +128,7 @@
                 $('#business_people_name').val("");
                 $('#applyBeginDate').val("");
                 $('#applyEndDate').val("");
-                //$('#auditStatus').val("")
+                $('#auditStatus').val("")
             }
         };
         // 添加搜索点击事件监听

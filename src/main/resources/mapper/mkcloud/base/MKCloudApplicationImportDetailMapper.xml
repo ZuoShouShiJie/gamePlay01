@@ -256,6 +256,24 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <update id="updateByNameCode" parameterType="mkcloudadmin.model.mkcloud.po.MKCloudApplicationImportDetail" >
+    update mkcloud_application_import_detail
+    <set >
+      <if test="businessPeopleCode != null" >
+        business_people_code = #{businessPeopleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessPeopleName != null" >
+        business_people_name = #{businessPeopleName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where
+    apply_name = #{applyName,jdbcType=VARCHAR} and
+    apply_mobile = #{applyMobile,jdbcType=VARCHAR}
+  </update>
+
+
   <update id="updateByPrimaryKey" parameterType="mkcloudadmin.model.mkcloud.po.MKCloudApplicationImportDetail" >
     update mkcloud_application_import_detail
     set batch_id = #{batchId,jdbcType=VARCHAR},

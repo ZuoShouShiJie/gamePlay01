@@ -63,7 +63,7 @@
     </thead>
 </table>
 <br>
-预付款计录
+预付款记录
 <table class="layui-table" lay-data="{url:'advancePaymentPlan/selectByPayMentList',method:'post'}">
     <thead>
     <tr>
@@ -76,7 +76,7 @@
 </table>
 
 <br>
-用款计录
+用款记录
 <table class="layui-table" lay-data="{url:'PrepaymentRuleConfiguration/selectByPrepaymentRuleList',method:'post',id:'finance'}" lay-filter="finance" >
     <thead>
         <th lay-data="{align:'center',field:'settlementType'}">费用类型</th>
@@ -154,8 +154,8 @@
                         var body = layer.getChildFrame('body',index);
                         // var subForm = $(pIframe).find('#editForm');//在父页面里找到editForm表格，这个Id为所编辑form的ID值
                         body.find('#advance').val("advancename");
-                        body.find('#settlementEndDate').val(data.settlementEndDate);
-                        body.find('#settltmentBeginDate').val(data.settltmentBeginDate);
+                        body.find('#endDate').val(data.settlementEndDate);
+                        body.find('#beginDate').val(data.settltmentBeginDate);
                         var iframeWin = window[layero.find('iframe')[0]['name']];
                         iframeWin.advancePayment(data.settltmentBeginDate,data.settlementEndDate);
                     }

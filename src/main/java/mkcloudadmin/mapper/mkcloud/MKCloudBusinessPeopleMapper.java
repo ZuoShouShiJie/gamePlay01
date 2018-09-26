@@ -30,8 +30,6 @@ public interface MKCloudBusinessPeopleMapper {
 
 
     List<MKCloudBusinessPeople> selectByBusinessPeopleCodeList(@Param("businessPeopleCodes") List<String> businessPeopleCodes);
-
-
     /**
      * (后管)
      *根据编号 查看推广人员信息

@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="shortcut icon" href="images/biaoti.png">
 	<title>极速易配后管系统</title>
 	<link rel="stylesheet" th:href="@{/frame/layui-v2/css/layui.css}" media="all">
 </head>
@@ -46,65 +47,90 @@
 			<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 			<ul class="layui-nav layui-nav-tree"  lay-filter="test">
 
-				<li class="layui-nav-item">
-					<a href="javascript:;">记录管理</a>
+				<li class="layui-nav-item" id="1000">
+					<a href="javascript:;">申卡管理</a>
 					<dl class="layui-nav-child">
 						<!--<dd><a href="./page?page=feedVisitInfoImport" target="mainPage">访问数据导入</a></dd>-->
-						<dd><a href="./page?page=feedBackInfoImport" target="mainPage">反馈数据导入</a></dd>
-						<dd><a href="./page?page=nobusinesspersonRelated" target="mainPage">无推广人员关联单据</a></dd>
-						<dd><a href="./page?page=queryVisitDetailRecord" target="mainPage">申卡数据查询</a></dd>
-
-						<dd><a href="./page?page=queryBackDetailRecord" target="mainPage">反馈数据查询</a></dd>
+						<dd><a href="./page?page=queryVisitDetailRecord" target="mainPage" id="10001000">申卡进度查询①</a></dd>
+						<dd><a href="./page?page=feedBackInfoImport" target="mainPage" id="10001001">申卡成功确认②</a></dd>
+						<dd name="hidd"><a href="./page?page=queryBackDetailRecord" target="mainPage" id="10001002">佣金分配查询③</a></dd>
+						<dd><a href="./page?page=nobusinesspersonRelated" target="mainPage"  id="10001003">申卡关联推广员</a></dd>
 					</dl>
 				</li>
-				<li class="layui-nav-item">
-					<a href="javascript:;">佣金管理管理</a>
+				<li class="layui-nav-item" id="2000">
+					<a href="javascript:;">佣金管理</a>
 					<dl class="layui-nav-child">
-						<dd><a href="./page?page=commissionAudit" target="mainPage">分佣审批</a></dd>
-						<dd><a href="./page?page=commissionDetailSearch" target="mainPage">分佣明细查询</a></dd>
+						<dd><a href="./page?page=commissionDetailSearch" target="mainPage" id="20002000">推广员佣金明细④</a></dd>
+						<dd><a href="./page?page=commissionAudit" target="mainPage" id="20002001">推广员佣金汇总确认⑤</a></dd>
 					</dl>
 				</li>
-				<li class="layui-nav-item">
+				<li class="layui-nav-item" id="3000">
 					<a href="javascript:;">付款管理</a>
 					<dl class="layui-nav-child">
-						<dd><a href="./page?page=unpaidDetailPage" target="mainPage">待付款清单</a></dd>
-						<dd><a href="./page?page=paidDetailPage" target="mainPage">已付款清单</a></dd>
-						<!--<dd><a href="./page?page=advancePaidDetailPage" target="mainPage">预付款查询</a></dd>-->
+						<dd><a href="./page?page=unpaidDetailPage" target="mainPage" id="30001000">待付款清单⑥</a></dd>
+						<dd><a href="./page?page=paidDetailPage" target="mainPage" id="30002000">已付款清单⑦</a></dd>
 					</dl>
 				</li>
 
-				<li class="layui-nav-item">
+				<li class="layui-nav-item" id="4000">
 					<a href="javascript:;">会员管理</a>
 					<dl class="layui-nav-child">
-						<dd><a href="./page?page=membersManage" target="mainPage">会员信息</a></dd>
+						<dd><a href="./page?page=membersManage" target="mainPage" id="40001000">会员信息</a></dd>
 					</dl>
 				</li>
-				<li class="layui-nav-item">
+				<li class="layui-nav-item" id="5000">
 					<a href="javascript:;">营销产品管理</a>
 					<dl class="layui-nav-child">
-						<dd><a href="./page?page=creditCardProduct" target="mainPage">信用卡</a></dd>
-						<dd><a href="./page?page=loanProduct" target="mainPage">贷款</a></dd>
+						<dd><a href="./page?page=creditCardProduct" target="mainPage" id="50001000">信用卡</a></dd>
+						<dd><a href="./page?page=loanProduct" target="mainPage" id="50002000">贷款</a></dd>
 					</dl>
 				</li>
-				<li class="layui-nav-item">
+				<li class="layui-nav-item" id="6000">
 					<a href="javascript:;">推广员管理</a>
 					<dl class="layui-nav-child">
-						<dd><a href="./page?page=inBusinessPeople" target="mainPage">内部推广员</a></dd>
+						<dd><a href="./page?page=inBusinessPeople" target="mainPage" id="60001000">内部推广员</a></dd>
 					</dl>
 					<dl class="layui-nav-child">
-						<dd><a href="./page?page=outBusinessPeople" target="mainPage">外部推广员</a></dd>
+						<dd><a href="./page?page=outBusinessPeople" target="mainPage" id="60002000">外部推广员</a></dd>
 					</dl>
 				</li>
-				<li class="layui-nav-item">
+			<!--	<li class="layui-nav-item" id="7000">
 					<a href="javascript:;">用户管理</a>
 					<dl class="layui-nav-child">
-						<dd><a href="./page?page=addUser" target="mainPage">新增用户</a></dd>
+						<dd><a href="./page?page=addUser" target="mainPage" id="70001000">新增用户</a></dd>
 					</dl>
-					<!--<dl class="layui-nav-child">
-						<dd><a href="./page?page=changeUser" target="mainPage">修改密码</a></dd>
-					</dl>-->
 					<dl class="layui-nav-child">
-						<dd><a href="./page?page=userInfoList" target="mainPage">用户列表</a></dd>
+						<dd><a href="./page?page=userInfoList" target="mainPage" id="70002000">用户列表</a></dd>
+					</dl>
+				</li>-->
+			<!--	<li class="layui-nav-item" id="8000">
+					<a href="javascript:;">商户管理</a>
+					<dl class="layui-nav-child">
+						<dd><a href="./page?page=commercialTenant" target="mainPage" id="80001000">商户管理</a></dd>
+					</dl>
+				</li>-->
+				<li class="layui-nav-item" id="9000">
+					<a href="javascript:;">预付款管理</a>
+					<dl class="layui-nav-child">
+						<dd><a href="./page?page=advancePaymentPlan" target="mainPage" id="90002000">预付款流水维护</a></dd>
+						<dd><a href="./page?page=mprepaymentRuleConfiguration" target="mainPage" id="90003000">结算规则配置</a></dd>
+						<dd><a href="./page?page=advancePaidDetailPage" target="mainPage" id="90001000">商户预付款查询</a></dd>
+					</dl>
+				</li>
+			<li class="layui-nav-item" id="1100">
+					<a href="javascript:;">统计报表</a>
+					<dl class="layui-nav-child">
+						<dd><a href="./page?page=applyCountPage" target="mainPage" id="11001000">办卡量汇总</a></dd>
+						<dd><a href="./page?page=incomeSummaryPage" target="mainPage" id="11002000">收入汇总</a></dd>
+						<dd><a href="./page?page=paymentSummaryPage" target="mainPage" id="11003000">付款统计</a></dd>
+					</dl>
+				</li>
+				<li class="layui-nav-item" id="1200">
+					<a href="javascript:;">权限管理</a>
+					<dl class="layui-nav-child">
+                        <dd><a href="./page?page=menumanagement" target="mainPage" id="12001000">菜单管理</a></dd>
+						<dd><a href="./page?page=rolemanagement" target="mainPage" id="12002000">角色管理</a></dd>
+						<dd><a href="./page?page=usermanagement" target="mainPage" id="12003000">用户管理</a></dd>
 					</dl>
 				</li>
 			</ul>
@@ -139,10 +165,54 @@
 	</div>
 </div>
 <script th:src="@{/frame/layui-v2/layui.js}" charset="utf-8"></script>
+<script th:src="@{/frame/jquery.min.js}" charset="utf-8"></script>
 <script>
+
+    var request = (function (){
+        var obj = {};
+        var arr = window.location.search.slice(1).split("&");
+        for (var i = 0, len = arr.length; i < len; i++) {
+            var nv = arr[i].split("=");
+            obj[unescape(nv[0]).toLowerCase()] = unescape(nv[1]);
+        }
+        return obj;
+    })()
+    var id=request.id;
     //JavaScript代码区域
     layui.use('element', function(){
+
         var element = layui.element;
+        $.ajax({
+            url: "operator/queryUserMenu",
+            async: true,
+            type: "get",
+            dataType: "json",
+            data: {
+                "id": id
+            },
+            success: function (result) {
+                $("#test1").hide();
+
+                var data = result.data;
+               var mkCloudMenuInfos= data.mkCloudMenuInfos;
+               var allMenuInfo = data.allMenuInfo;
+
+                for (var o in allMenuInfo){
+                    $("#"+allMenuInfo[o].menuId).hide();
+				}
+
+                for (var o in mkCloudMenuInfos){
+                    $("#"+mkCloudMenuInfos[o].menuId).show();
+                }
+            },
+            error: function () {
+                alert("请求失败");
+            },
+        });
+
+
+
+
 
     });
 
@@ -161,6 +231,30 @@
 
         //弹出提示 “aaa”
 
+    });
+</script>
+<script>
+    //JavaScript代码区域
+/*    layui.use('element', function(){
+        var element = layui.element;
+
+
+
+    });*/
+
+    layui.use(['layer'], function(){
+        var layer=layui.layer;
+        var router = layui.router();
+        var $ = layui.$;//获取jquery组件
+
+        // layer.alert(layui.data('test').nickname);
+
+        // layer.alert('aaaa');//弹出提示 “xxx”
+        // var name = window.location.href.split("=")[2]
+        var name = localStorage.getItem("userName");
+		if(name == "temp1"){
+		    $("[name='hidd']").hide();
+		}
     });
 </script>
 </body>

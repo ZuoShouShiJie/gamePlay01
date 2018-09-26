@@ -18,6 +18,9 @@ public interface MKCloudApplicationImportDetailMapper {
 
     int updateByPrimaryKeySelective(MKCloudApplicationImportDetail record);
 
+    int updateByNameCode(MKCloudApplicationImportDetail record);
+
+
     int updateByPrimaryKey(MKCloudApplicationImportDetail record);
 
     /**
@@ -82,7 +85,7 @@ public interface MKCloudApplicationImportDetailMapper {
     Long queryApplyCount(@Param("applyProduct") String applyProduct,@Param("applyName") String applyName,
                          @Param("applyMobile") String applyMobile,@Param("batchId") String batchId,
                          @Param("businessPeopleCode") String businessPeopleCode,@Param("businessPeopleName") String businessPeopleName,
-                         @Param("applyBeginDate") String applyBeginDate,@Param("applyEndDate") String applyEndDate);
+                         @Param("applyBeginDate") String applyBeginDate,@Param("applyEndDate") String applyEndDate,@Param("status") String status);
 
     /**
      * 条件查询申卡记录
@@ -100,7 +103,7 @@ public interface MKCloudApplicationImportDetailMapper {
     List<MKCloudApplicationImportDetail> queryApplyRecord(@Param("applyProduct") String applyProduct,@Param("applyName") String applyName,
                                                             @Param("applyMobile") String applyMobile,@Param("batchId") String batchId,
                                                             @Param("businessPeopleCode") String businessPeopleCode,@Param("businessPeopleName") String businessPeopleName,
-                                                            @Param("applyBeginDate") String applyBeginDate,@Param("applyEndDate") String applyEndDate,
+                                                            @Param("applyBeginDate") String applyBeginDate,@Param("applyEndDate") String applyEndDate,@Param("status") String status,
                                                             @Param("page") Page<MKCloudApplicationImportDetailVO> page);
 
 
@@ -108,4 +111,14 @@ public interface MKCloudApplicationImportDetailMapper {
     MKCloudApplicationImportDetail selectByVisitId(@Param("visitId") String applyId);
     int  updateByVisitId(MKCloudApplicationImportDetail detail);
     List<MKCloudApplicationImportDetail> selectByAuditStatus(@Param("auditStatus") String auditStatus,@Param("version") String version);
+
+    int querySuccessCount();
+    int querySuccessOwnCount();
+    int querySuccessPromotersCount();
+    int queryFailCount();
+    int queryFailOwnCount();
+    int queryFailPromotersCount();
+    int queryInCount();
+    int queryInOwnCount();
+    int queryInPromotersCount();
 }

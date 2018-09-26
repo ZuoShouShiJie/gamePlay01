@@ -37,7 +37,7 @@
             <input name="endDate" id="endDate" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" type="text">
         </div>
         <button class="layui-btn" data-type="reload" style="margin-left: 20px;">查询</button>
-
+        <button data-type="reset" class="layui-btn layui-btn-primary">重置</button>
     </div>
 </div>
 <div class="layui-form-item">
@@ -94,6 +94,12 @@
                         endDate:$('#endDate').val()
                     }
                 });
+            },
+            reset: function () {
+                $('#payee').val("");
+                $('#payeeAccount').val("");
+                $('#beginDate').val("");
+                $('#endDate').val("");
             }
         };
         // 添加搜索点击事件监听

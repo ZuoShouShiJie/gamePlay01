@@ -3,6 +3,8 @@ package mkcloudadmin.controller.business.user;
 import mkcloudadmin.controller.base.SessionApi;
 import mkcloudadmin.model.base.Page;
 import mkcloudadmin.model.mkcloud.po.MKCloudManageUser;
+import mkcloudadmin.model.mkcloud.po.MKCloudUserInfo;
+import mkcloudadmin.service.operatorMng.impl.OperatorInfoImpl;
 import mkcloudadmin.service.userinfo.impl.UserInfoImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,20 +30,25 @@ import java.util.Map;
 public class UserController extends SessionApi {
     @Resource
     private UserInfoImpl userInfo;
+    @Resource
+    private OperatorInfoImpl operatorInfo;
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST, path = "/login")
     public Map<String, Object> queryCommissionManageData(@RequestParam("username") String username, @RequestParam("password") String password) {
         Map<String, Object> res = new HashMap<>();
-        MKCloudManageUser user =  (MKCloudManageUser) getSession().getAttribute(USER_KEY_IN_SESSION);
+        MKCloudUserInfo user =  (MKCloudUserInfo) getSession().getAttribute(USER_KEY_IN_SESSION);
         if(user ==null){
-           MKCloudManageUser mkCloudManageUser =  userInfo.queryByUserNameAndPwd(username,password);
-           if(mkCloudManageUser !=null){
-               if("0".equals(mkCloudManageUser.getStatus())){
+//           MKCloudManageUser mkCloudManageUser =  userInfo.queryByUserNameAndPwd(username,password);
+            MKCloudUserInfo mkCloudUserInfo = operatorInfo.queryOperatorByNamePa(username,password,"1000");
+
+           if(mkCloudUserInfo !=null){
+               if("0".equals(mkCloudUserInfo.getStatus())){
                    res.put("code",1);
                    res.put("msg", "用户已失效！");
 
                }else {
-                   getSession().setAttribute(USER_KEY_IN_SESSION,mkCloudManageUser);
+                   getSession().setAttribute(USER_KEY_IN_SESSION,mkCloudUserInfo);
+                   res.put("data",mkCloudUserInfo.getId());
                    res.put("code",0);
                    res.put("msg", "成功");
                }
@@ -52,7 +59,8 @@ public class UserController extends SessionApi {
            }
 
         }else {
-            if(username.equals(user.getUserId()) && password.equals(user.getPassword())){
+            if(username.equals(user.getUserLoginName()) && password.equals(user.getPassword())){
+                res.put("data",user.getId());
                 res.put("code",0);
                 res.put("msg", "成功");
             }else {
@@ -103,6 +111,9 @@ public class UserController extends SessionApi {
     @RequestMapping(method = RequestMethod.POST, path = "/changeUserData")
     @ResponseBody
     public Map<String, Object> changeUserData(@RequestParam Map<String, String> param) {
+
+
+
 
         Map<String, Object>  res = new HashMap<>();
         //校验用户名是否存在

@@ -5,6 +5,7 @@ import mkcloudadmin.model.mkcloud.po.MKCloudCommissionDetail;
 import mkcloudadmin.model.mkcloud.vo.MKCloudCommissionConfirmVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MKCloudCommissionDetailMapper {
@@ -22,7 +23,13 @@ public interface MKCloudCommissionDetailMapper {
 
     Long selectCommissionManageDataCount(@Param("businessPeopleId") String businessPeopleId,@Param("businessPeopleName") String businessPeopleName);
 
-
+    /**
+     * selectCommissionManageDataList
+     * @param businessPeopleId
+     * @param businessPeopleName
+     * @param page
+     * @return
+     */
     List<MKCloudCommissionConfirmVO>  selectCommissionManageDataList(@Param("businessPeopleId") String businessPeopleId, @Param("businessPeopleName") String businessPeopleName,
                                                                      @Param("page") Page<MKCloudCommissionDetail> page);
 
@@ -56,11 +63,11 @@ public interface MKCloudCommissionDetailMapper {
       * @param: [businessPeopleId, businessPeopleName, beginDate, endDate, cusTel, cusName]
       * @return: java.lang.Long
       */
-    Long selectCommissionSearchDetailCount(@Param("businessPeopleId") String businessPeopleId,@Param("businessPeopleName") String businessPeopleName,@Param("beginDate") String beginDate,
-                                           @Param("endDate") String endDate,@Param("cusTel") String cusTel,@Param("cusName") String cusName);
+    Long selectCommissionSearchDetailCount(@Param("businessPeopleId") String businessPeopleId,@Param("businessPeopleName") String businessPeopleName,@Param("beginDate") Date beginDate,
+                                           @Param("endDate") Date endDate,@Param("cusTel") String cusTel,@Param("cusName") String cusName);
 
-    List<MKCloudCommissionDetail> selectCommissionSearchDetailList(@Param("businessPeopleId") String businessPeopleId,@Param("businessPeopleName") String businessPeopleName,@Param("beginDate") String beginDate,
-                                           @Param("endDate") String endDate,@Param("cusTel") String cusTel,@Param("cusName") String cusName,@Param("page") Page<MKCloudCommissionDetail> page);
+    List<MKCloudCommissionDetail> selectCommissionSearchDetailList(@Param("businessPeopleId") String businessPeopleId, @Param("businessPeopleName") String businessPeopleName, @Param("beginDate") Date beginDate,
+                                                                   @Param("endDate") Date endDate, @Param("cusTel") String cusTel, @Param("cusName") String cusName, @Param("page") Page<MKCloudCommissionDetail> page);
 
     Long updateStateBySettlementId(@Param("settlementId") String settlementId);
 
@@ -73,4 +80,10 @@ public interface MKCloudCommissionDetailMapper {
       */
     MKCloudCommissionDetail selectByBusinessPeopleCodeAndClientInfo(@Param("businessPeopleCode") String businessPeopleCode,@Param("cusTel") String cusTel,
                                                                     @Param("batchId") String batchId,@Param("productName") String productName);
+
+    List<MKCloudCommissionDetail>   selectCommApprovalDates(@Param("beginDate") String beginDate,
+                                                            @Param("endDate") String endDate,@Param("page") Page<MKCloudCommissionDetail> page);
+
+    Long  selectCommApprovalDateCount(@Param("beginDate") String beginDate,
+                                      @Param("endDate") String endDate);
 }

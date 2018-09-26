@@ -1,11 +1,13 @@
 package mkcloudadmin.mapper.mkcloud;
 
 import mkcloudadmin.model.base.Page;
+import mkcloudadmin.model.mkcloud.po.MKCloudApplicationImportDetail;
 import mkcloudadmin.model.mkcloud.po.MKCloudBankImportDetail;
 import mkcloudadmin.model.mkcloud.po.MKCloudBusinessPeople;
 import mkcloudadmin.model.mkcloud.vo.MKCloudBankImportDetailVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface MKCloudBankImportDetailMapper {
@@ -18,6 +20,8 @@ public interface MKCloudBankImportDetailMapper {
     MKCloudBankImportDetail selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(MKCloudBankImportDetail record);
+
+    int updateByNameCode(MKCloudBankImportDetail record);
 
     int updateByPrimaryKey(MKCloudBankImportDetail record);
     Long queryFeedbackBankDetailCount(@Param("method") String method);
@@ -46,4 +50,8 @@ public interface MKCloudBankImportDetailMapper {
     List<MKCloudBankImportDetail>  selectByBankImportDetail(@Param("page") Page<MKCloudBankImportDetail> page);
     int selectByBankCount();
 
+    BigDecimal queryTotalCommission();
+    BigDecimal queryNaturalTotal();
+    BigDecimal queryRecommendTotal();
+    BigDecimal queryPromotersTotal();
 }

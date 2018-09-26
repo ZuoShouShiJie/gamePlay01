@@ -255,8 +255,8 @@
         product_name = #{productName,jdbcType=VARCHAR},
       </if>
       <if test="approvalDate != null" >
-        approval_date = #{approvalDate,jdbcType=TIMESTAMP},
-      </if>
+      approval_date = #{approvalDate,jdbcType=TIMESTAMP},
+    </if>
       <if test="approvalResult != null" >
         approval_result = #{approvalResult,jdbcType=VARCHAR},
       </if>

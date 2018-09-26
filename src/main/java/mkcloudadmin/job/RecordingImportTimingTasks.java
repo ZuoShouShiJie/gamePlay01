@@ -21,6 +21,7 @@ import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Component
@@ -39,12 +40,14 @@ public class RecordingImportTimingTasks  {
 
  /*   @Value("${incomeMoney.to.canwithdraw}")
     private String cron;*/
- @Scheduled(cron = "0 0/30 8-20 * * *")
-    /*@Scheduled(cron = "0 0/1 * * * *")*/
+  @Scheduled(cron = "0 0/30 8-20 * * *")
     @Transactional
     public void recording() {
         Map<String, String> params = new HashMap<>();
         params.put("key", "10875_5NTjK76k3fUe8KVz4BfqK");
+        Date date = DateUtils.getBeginDate(new Date(),30);
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+      params.put("begin", format.format(date));
         String url = "https://www.youdancard.com/api/visit-list1";
         String message = HttpGetUtil.httpRequestToString(url
                 , params);
@@ -67,7 +70,7 @@ public class RecordingImportTimingTasks  {
                     tem.setRemark(jsonObject.getString("is_second"));
                     tem.setApplyMobile(jsonObject.getString("phone"));
                     MKCloudApplicationImportDetail detail = mkCloudApplicationImportDetailMapper.selectByVisitId(tem.getVisitId());
-                    MKCloudMemberInfo info = memberInfoMapper.selectByClientBaseInfo(tem.getApplyMobile(), tem.getApplyName());
+                    MKCloudMemberInfo info = memberInfoMapper.selectByTel(tem.getApplyMobile());
                     if (null != info && null != info.getBusinessPeopleCode() && !"".equals(info.getBusinessPeopleCode())) {
                         MKCloudBusinessPeople people = businessPeopleMapper.selectPeopleCode(info.getBusinessPeopleCode());
                         if (null != people && null != people.getBusinessPeopleName() && !"".equals(people.getBusinessPeopleName())) {
@@ -76,31 +79,27 @@ public class RecordingImportTimingTasks  {
                         tem.setBusinessPeopleCode(info.getBusinessPeopleCode());
                     }
                     if (null == info) {
-                        memberInfoMapper.insertSelective(reConver(tem));
+                        memberInfoMapper.insertSelective(reConveradd(tem));
                         logger.info("会员表插入成功");
                     } else {
-                        mkCloudApplicationImportDetailMapper.updateByVisitId(tem);
+                        memberInfoMapper.updateBySelective(reConverupate(tem));
                     }
                     if (null == detail) {
                         logger.info("peopleCode:" + tem.getBusinessPeopleCode());
                         mkCloudApplicationImportDetailMapper.insertSelective(tem);
-
                     } else {
-                        memberInfoMapper.updateBySelective(reConver(tem));
+                        mkCloudApplicationImportDetailMapper.updateByVisitId(tem);
                     }
                 }
-
             }
-
            /* bankImportTotalMapper.insertSelective(reConver(jsonArray,updateCount));*/
             logger.info("插入成功");
         }else {
             logger.info("插入失败");
         }
     }
-
-   @Scheduled(cron = "0 30 10 * * ?")
-    /*@Scheduled(cron = "0 0/1 * * * *")*/
+   /*@Scheduled(cron = "0 0 18 * * ?")*/
+   @Scheduled(cron = "0 0 21 * * ?")
     @Transactional
     public void addImportDateil() {
        String  batchId= "FW" + DateUtils.dateToString(new Date(), "yyyyMMddHHmmss") + (int) ((Math.random() * 9 + 1) * 10);
@@ -117,23 +116,40 @@ public class RecordingImportTimingTasks  {
             logger.info("无最新成功状态的数据");
         }
     }
-    public MKCloudMemberInfo reConver(MKCloudApplicationImportDetail appDetail){
+    public MKCloudMemberInfo reConveradd(MKCloudApplicationImportDetail appDetail){
         MKCloudMemberInfo memberInfo=new MKCloudMemberInfo();
             memberInfo.setTel(appDetail.getApplyMobile());
             memberInfo.setType(BusinessPeopleTypeEnum.PEOPLE_TYPE_PEOPLE.getCode());
             memberInfo.setChannelCode("0101");
             memberInfo.setMemberName(appDetail.getApplyName());
             memberInfo.setMemberCode(getMemberCode(memberInfo.getChannelCode(), appDetail.getApplyMobile()));
-            memberInfo.setState( StaticEnum.EFFECTIVE.getCode());
+            memberInfo.setState(StaticEnum.EFFECTIVE.getCode());
             memberInfo.setHasBusiness(StaticEnum.EFFECTIVE.getCode());
             if("成功".equals(appDetail.getAuditStatus())) {
                 memberInfo.setBusinessStatus(StaticEnum.member_sussess.getCode());
-            }else if("资料提交中".equals(appDetail.getAuditStatus())){
+            }else if("资料提交中".equals(appDetail.getAuditStatus()) || "银行审核中".equals(appDetail.getAuditStatus()) ){
                 memberInfo.setBusinessStatus(StaticEnum.member_shen.getCode());
             }else{
                 memberInfo.setBusinessStatus(StaticEnum.member_fail.getCode());
             }
             return  memberInfo;
+    }
+    public MKCloudMemberInfo reConverupate(MKCloudApplicationImportDetail appDetail){
+        MKCloudMemberInfo memberInfo=new MKCloudMemberInfo();
+        memberInfo.setTel(appDetail.getApplyMobile());
+        memberInfo.setChannelCode("0101");
+        memberInfo.setMemberName(appDetail.getApplyName());
+        memberInfo.setMemberCode(getMemberCode(memberInfo.getChannelCode(), appDetail.getApplyMobile()));
+        memberInfo.setState( StaticEnum.EFFECTIVE.getCode());
+        memberInfo.setHasBusiness(StaticEnum.EFFECTIVE.getCode());
+        if("成功".equals(appDetail.getAuditStatus())) {
+            memberInfo.setBusinessStatus(StaticEnum.member_sussess.getCode());
+        }else if("资料提交中".equals(appDetail.getAuditStatus())){
+            memberInfo.setBusinessStatus(StaticEnum.member_shen.getCode());
+        }else{
+            memberInfo.setBusinessStatus(StaticEnum.member_fail.getCode());
+        }
+        return  memberInfo;
     }
     public static String getMemberCode(String channelCode, String tel) {
             int codeLength = 4; // 4位验证码
