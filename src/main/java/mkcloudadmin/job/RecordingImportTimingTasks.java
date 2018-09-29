@@ -40,7 +40,7 @@ public class RecordingImportTimingTasks  {
 
  /*   @Value("${incomeMoney.to.canwithdraw}")
     private String cron;*/
-  @Scheduled(cron = "0 0/30 8-20 * * *")
+//  @Scheduled(cron = "0 0/30 8-20 * * *")
     @Transactional
     public void recording() {
         Map<String, String> params = new HashMap<>();
@@ -99,7 +99,7 @@ public class RecordingImportTimingTasks  {
         }
     }
    /*@Scheduled(cron = "0 0 18 * * ?")*/
-   @Scheduled(cron = "0 0 21 * * ?")
+//   @Scheduled(cron = "0 0 21 * * ?")
     @Transactional
     public void addImportDateil() {
        String  batchId= "FW" + DateUtils.dateToString(new Date(), "yyyyMMddHHmmss") + (int) ((Math.random() * 9 + 1) * 10);

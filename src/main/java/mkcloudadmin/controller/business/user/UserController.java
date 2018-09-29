@@ -38,7 +38,6 @@ public class UserController extends SessionApi {
         Map<String, Object> res = new HashMap<>();
         MKCloudUserInfo user =  (MKCloudUserInfo) getSession().getAttribute(USER_KEY_IN_SESSION);
         if(user ==null){
-//           MKCloudManageUser mkCloudManageUser =  userInfo.queryByUserNameAndPwd(username,password);
             MKCloudUserInfo mkCloudUserInfo = operatorInfo.queryOperatorByNamePa(username,password,"1000");
 
            if(mkCloudUserInfo !=null){

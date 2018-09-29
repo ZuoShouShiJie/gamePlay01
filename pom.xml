@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.dzjk</groupId>
-	<artifactId>mkcloud-admin</artifactId>
+	<artifactId>gamePlay01</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>mkcloud-admin</name>
-	<description>营销云后台管理系统</description>
+	<name>gamePlay01</name>
+	<description>乐逍遥</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
